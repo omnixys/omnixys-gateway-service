@@ -16,7 +16,7 @@ permissions:
 
 env:
   COSIGN_EXPERIMENTAL: 'true'
-  IMAGE_NAME: ${{ secrets.DOCKER_USER }}/${{ secrets.SERVICE }}
+  IMAGE_NAME: ${{ secrets.DOCKER_USER }}/${{ secrets.SERVICE }}-service
 
   ACTIVE_PROFILE: ${{ secrets.ACTIVE_PROFILE }}
   HTTPS: ${{ secrets.HTTPS }}
@@ -40,7 +40,7 @@ jobs:
       CURRENT_DATE: ${{ steps.set_date.outputs.CURRENT_DATE }}
     strategy:
       matrix:
-        node-version: [23.x]
+        node-version: [23.10.0]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -123,7 +123,7 @@ jobs:
     needs: build
     strategy:
       matrix:
-        node-version: [23.x]
+        node-version: [23.10.0]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -160,7 +160,7 @@ jobs:
     needs: [build]
     strategy:
       matrix:
-        node-version: [23.x]
+        node-version: [23.10.0]
     if: github.actor == 'caleb-script' && github.event_name == 'push'
     steps:
       - name: Download dist folder
@@ -184,7 +184,7 @@ jobs:
     needs: [build, package]
     strategy:
       matrix:
-        node-version: [23.x]
+        node-version: [23.10.0]
     env:
       CURRENT_DATE: ${{ needs.build.outputs.CURRENT_DATE }}
     if: github.actor == 'caleb-script' && github.event_name == 'push'
