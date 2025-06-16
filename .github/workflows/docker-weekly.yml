@@ -2,19 +2,19 @@ name: Weekly Docker Push to GHCR
 
 on:
   schedule:
-    - cron: '0 3 * * 1'  # Jeden Montag um 03:00 UTC
-  workflow_dispatch:  # Manuelles Triggern möglich
+    - cron: '0 3 * * 1' # Jeden Montag um 03:00 UTC
+  workflow_dispatch: # Manuelles Triggern möglich
 
 permissions:
   contents: read
   id-token: write # ← WICHTIG für Cosign ohne Schlüssel (keyless signing)
-  packages: write  # Notwendig für GHCR Push
+  packages: write # Notwendig für GHCR Push
 
 env:
-    COSIGN_EXPERIMENTAL: "true"
-    IMAGE_NAME: ${{ secrets.DOCKER_USER }}/${{ secrets.SERVICE }}-service
-    IMAGE_NAME_REPOSITORY: ghcr.io/${{ github.repository }}
-    # IMAGE_NAME: ${{ secrets.DOCKER_USER }}/${{ github.event.repository.name }}
+  COSIGN_EXPERIMENTAL: 'true'
+  IMAGE_NAME: ${{ secrets.DOCKER_USER }}/${{ secrets.SERVICE }}-service
+  IMAGE_NAME_REPOSITORY: ghcr.io/${{ github.repository }}
+  # IMAGE_NAME: ${{ secrets.DOCKER_USER }}/${{ github.event.repository.name }}
 
 jobs:
   docker:
@@ -105,7 +105,7 @@ jobs:
             REVISION=${{ github.sha }}
             CREATED=${{ vars.CURRENT_DATE }}
             APP_VERSION=${{ vars.CURRENT_DATE }}
-            APP_NAME=${{ secrets.SERVICE }}-service
+            APP_NAME=${{ secrets.SERVICE }}
             NODE_VERSION=${{ matrix.node-version }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
