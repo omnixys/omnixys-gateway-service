@@ -1,4 +1,4 @@
-name: Weekly Docker Push to GHCR – Omnixys Gateway Service
+name: Weekly Docker Push to GHCR
 
 on:
   schedule:
@@ -8,11 +8,12 @@ on:
 permissions:
   contents: read
   id-token: write # ← WICHTIG für Cosign ohne Schlüssel (keyless signing)
+  packages: write  # Notwendig für GHCR Push
 
 env:
     COSIGN_EXPERIMENTAL: "true"
     IMAGE_NAME: ${{ secrets.DOCKER_USER }}/${{ secrets.SERVICE }}
-    # IMAGE_NAME: ghcr.io/${{ github.repository }}
+    IMAGE_NAME_REPOSITORY: ghcr.io/${{ github.repository }}
     # IMAGE_NAME: ${{ secrets.DOCKER_USER }}/${{ github.event.repository.name }}
 jobs:
   sync-current-date:
@@ -63,40 +64,55 @@ jobs:
                 echo "✅ CURRENT_DATE ist bereits aktuell: $CURRENT_DATE"
               fi
 
-  docker-push:
+  docker:
+    name: 🐳 Docker Build & Push
     runs-on: ubuntu-latest
     needs: sync-current-date
     env:
-        CURRENT_DATE: ${{ needs.sync-current-date.outputs.current_date }}
+      CURRENT_DATE: ${{ needs.sync-current-date.outputs.current_date }}
+    if: github.actor == 'caleb-script' && github.event_name == 'push'
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Log in to GitHub Container Registry
-        uses: docker/login-action@9780b0c442fbb1117ed29e0efdff1e18412f7567
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          install: true
+          driver-opts: image=moby/buildkit:latest
+
+      - name: Log in to GitHub Container Registry (GHCR)
+        uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
-      - name: Pull Latest Docker Image from Docker Hub
-        run: |
-          docker pull ${{ env.IMAGE_NAME }}:latest
+      - name: Set up Docker Cache
+        uses: actions/cache@v4
+        with:
+          path: /tmp/.buildx-cache
+          key: buildx-${{ github.sha }}
+          restore-keys: |
+            buildx-
 
-      - name: Tag Docker Image for GHCR
-        run: |
-          docker tag ${{ env.IMAGE_NAME }}:latest ghcr.io/${{ env.IMAGE_NAME }}:latest
-          docker tag ${{ env.IMAGE_NAME }}:latest ghcr.io/${{ env.IMAGE_NAME }}:${{ env.CURRENT_DATE }}
+      - name: Build and Push Docker Image (GHCR)
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          platforms: linux/amd64,linux/arm64
+          tags: |
+            ghcr.io/${{ github.repository }}:${{ env.CURRENT_DATE }}
+            ghcr.io/${{ github.repository }}:latest
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache
 
-      - name: Push Docker Image to GHCR
-        run: |
-          docker push ghcr.io/${{ env.IMAGE_NAME }}:${{ env.CURRENT_DATE }}
-          docker push ghcr.io/${{ env.IMAGE_NAME }}:latest
 
       - name: Install cosign
         uses: sigstore/cosign-installer@v3
 
       - name: Sign Docker Image with cosign (OIDC/GitHub)
         run: |
-            cosign sign --yes ghcr.io/${{ env.IMAGE_NAME }}:${{ env.CURRENT_DATE }}
-            cosign sign --yes ghcr.io/${{ env.IMAGE_NAME }}:latest
+            cosign sign --yes --recursive ghcr.io/${{ env.IMAGE_NAME_REPOSITORY }}:${{ env.CURRENT_DATE }}
+            cosign sign --yes --recursive ghcr.io/${{ env.IMAGE_NAME_REPOSITORY }}:latest
