@@ -9,7 +9,7 @@ permissions:
 
 env:
   COSIGN_EXPERIMENTAL: "true"
-  IMAGE_NAME: ${{ secrets.DOCKER_USER }}/${{ secrets.SERVICE }}
+  IMAGE_NAME: ${{ secrets.DOCKER_USER }}/${{ secrets.SERVICE }}-service
 
   ACTIVE_PROFILE: ${{ secrets.ACTIVE_PROFILE }}
   HTTPS: ${{ secrets.HTTPS }}
@@ -28,9 +28,10 @@ env:
 jobs:
   docker:
     name: 🐳 Docker Build & Push
+    strategy:
+      matrix:
+        node-version: [23.10.0]
     runs-on: ubuntu-latest
-    env:
-      CURRENT_DATE: ${{ vars.CURRENT_DATE }}
     if: github.actor == 'caleb-script' && github.event_name == 'push'
     steps:
       - name: Checkout Repository
@@ -53,7 +54,7 @@ jobs:
 
       - name: Aktualisiere CURRENT_DATE in Organisations-Variable (sicher)
         run: |
-          CURRENT_DATE="${{ vars.CURRENT_DATE }}"
+          CURRENT_DATE="${{ steps.set_date.outputs.CURRENT_DATE }}"
 
           if [ -z "$CURRENT_DATE" ]; then
             echo "Fehler: CURRENT_DATE ist leer!"
@@ -107,8 +108,14 @@ jobs:
           push: true
           platforms: linux/amd64,linux/arm64
           tags: |
-            ${{ env.IMAGE_NAME }}:${{ env.CURRENT_DATE }}
+            ${{ env.IMAGE_NAME }}:${{ vars.CURRENT_DATE }}
             ${{ env.IMAGE_NAME }}:latest
+          build-args: |
+            REVISION=${{ github.sha }}
+            CREATED=${{ vars.CURRENT_DATE }}
+            APP_VERSION=${{ vars.CURRENT_DATE }}
+            APP_NAME=${{ secrets.SERVICE }}-service
+            NODE_VERSION=${{ matrix.node-version }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
 
@@ -117,5 +124,5 @@ jobs:
 
       - name: Sign Docker Image with cosign (OIDC/GitHub)
         run: |
-          cosign sign --yes ${{ env.IMAGE_NAME }}:${{ env.CURRENT_DATE }}
-          cosign sign --yes ${{ env.IMAGE_NAME }}:latest
+          cosign sign --yes --recursive ${{ env.IMAGE_NAME }}:${{ vars.CURRENT_DATE }}
+          cosign sign --yes --recursive ${{ env.IMAGE_NAME }}:latest
