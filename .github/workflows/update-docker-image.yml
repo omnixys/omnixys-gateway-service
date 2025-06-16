@@ -8,7 +8,7 @@ permissions:
   id-token: write # ← WICHTIG für Cosign ohne Schlüssel (keyless signing)
 
 env:
-  COSIGN_EXPERIMENTAL: "true"
+  COSIGN_EXPERIMENTAL: 'true'
   IMAGE_NAME: ${{ secrets.DOCKER_USER }}/${{ secrets.SERVICE }}-service
 
   ACTIVE_PROFILE: ${{ secrets.ACTIVE_PROFILE }}
@@ -114,7 +114,7 @@ jobs:
             REVISION=${{ github.sha }}
             CREATED=${{ vars.CURRENT_DATE }}
             APP_VERSION=${{ vars.CURRENT_DATE }}
-            APP_NAME=${{ secrets.SERVICE }}-service
+            APP_NAME=${{ secrets.SERVICE }}
             NODE_VERSION=${{ matrix.node-version }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
