@@ -1,4 +1,4 @@
-name: Security - Omnixys Gateway Service
+name: Security
 
 on:
   schedule:
@@ -10,7 +10,7 @@ permissions:
   security-events: write
 
 env:
-  IMAGE_NAME: ${{ secrets.DOCKER_USER }}/${{ secrets.SERVICE }}
+  IMAGE_NAME: ${{ secrets.DOCKER_USER }}/${{ secrets.SERVICE }}-service
 
 jobs:
   dependency-check:

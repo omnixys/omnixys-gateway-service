@@ -182,6 +182,9 @@ jobs:
     name: 🐳 Docker Build & Push
     runs-on: ubuntu-latest
     needs: [build, package]
+    strategy:
+      matrix:
+        node-version: [23.x]
     env:
       CURRENT_DATE: ${{ needs.build.outputs.CURRENT_DATE }}
     if: github.actor == 'caleb-script' && github.event_name == 'push'
@@ -218,6 +221,12 @@ jobs:
           tags: |
             ${{ env.IMAGE_NAME }}:${{ env.CURRENT_DATE }}
             ${{ env.IMAGE_NAME }}:latest
+          build-args: |
+            REVISION=${{ github.sha }}
+            CREATED=${{ env.CURRENT_DATE }}
+            APP_VERSION=${{ env.CURRENT_DATE }}
+            APP_NAME=${{ secrets.SERVICE }}-service
+            NODE_VERSION=${{ matrix.node-version }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
 
@@ -226,5 +235,27 @@ jobs:
 
       - name: Sign Docker Image with cosign (OIDC/GitHub)
         run: |
-          cosign sign --yes ${{ env.IMAGE_NAME }}:${{ env.CURRENT_DATE }}
-          cosign sign --yes ${{ env.IMAGE_NAME }}:latest
+          cosign sign --yes --recursive ${{ env.IMAGE_NAME }}:${{ env.CURRENT_DATE }}
+          cosign sign --yes --recursive ${{ env.IMAGE_NAME }}:latest
+
+      # - name: Generate CycloneDX SBOM for Node.js
+      #   run: |
+      #     npm install -g @cyclonedx/bom
+      #     BINARY_PATH="$(npm bin -g)/cyclonedx-bom"
+      #     "$BINARY_PATH" -o sbom.json
+
+
+
+      # - name: Cosign SBOM Attestation
+      #   run: |
+      #     cosign attest \
+      #       --predicate sbom.json \
+      #       --type cyclonedx \
+      #       --key github \
+      #       ${{ env.IMAGE_NAME }}:${{ env.CURRENT_DATE }}
+
+      # - name: Upload SBOM (CycloneDX)
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: sbom-cyclonedx
+      #     path: sbom.json

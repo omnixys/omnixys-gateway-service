@@ -28,15 +28,29 @@ RUN npm ci --omit=dev --omit=peer --no-audit --no-fund
 # Stage 3: final
 # ---------------------------------------------------------------------------------------
 FROM node:${NODE_VERSION}-bookworm-slim AS final
-LABEL org.opencontainers.image.title="gateway" \
-      org.opencontainers.image.description="Appserver gateway" \
-      org.opencontainers.image.version="2025.05.16" \
+
+ARG NODE_VERSION
+ARG APP_NAME
+ARG APP_VERSION
+ARG CREATED
+ARG REVISION
+
+LABEL org.opencontainers.image.title="omnixys-${APP_NAME}-service" \
+      org.opencontainers.image.description="Omnixys ${APP_NAME}-service – Node.js ${NODE_VERSION}, gebaut mit TypeScript, Version ${APP_VERSION}, basiert auf Debian Bookworm." \
+      org.opencontainers.image.version="${APP_VERSION}" \
       org.opencontainers.image.licenses="GPL-3.0-or-later" \
-      org.opencontainers.image.authors="caleb.gyamfi@omnixys.com"
+      org.opencontainers.image.vendor="omnixys" \
+      org.opencontainers.image.authors="caleb.gyamfi@omnixys.com" \
+      org.opencontainers.image.base.name="node:${NODE_VERSION}-bookworm-slim" \
+      org.opencontainers.image.url="https://github.com/omnixys/omnixys-${APP_NAME}-service" \
+      org.opencontainers.image.source="https://github.com/omnixys/omnixys-${APP_NAME}-service" \
+      org.opencontainers.image.created="${CREATED}" \
+      org.opencontainers.image.revision="${REVISION}" \
+      org.opencontainers.image.documentation="https://github.com/omnixys/omnixys-${APP_NAME}-service/blob/main/README.md"
 
 WORKDIR /opt/app
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends dumb-init wget && \
+    apt-get install -y --no-install-recommends dumb-init  wget && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/*
 
 USER node
