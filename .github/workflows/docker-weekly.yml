@@ -21,7 +21,7 @@ jobs:
     name: 🐳 Docker Build & Push
     strategy:
       matrix:
-        node-version: [23.x]
+        node-version: [23.10.0]
     runs-on: ubuntu-latest
     if: github.actor == 'caleb-script' && github.event_name == 'push'
     steps:
