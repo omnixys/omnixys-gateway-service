@@ -1,12 +1,36 @@
-# .github/labeler.yml
-
 dependencies:
-  - '**/build.gradle'
-  - '**/build.gradle.kts'
+  - changed-files:
+      - any-glob-to-any-file:
+          - '**/package.json'
+          - '**/package-lock.json'
+          - '**/pyproject.toml'
+          - '**/build.gradle'
+          - '**/build.gradle.kts'
+          - '**/pom.xml'
 
 github-actions:
-  - '.github/workflows/*.yml'
+  - changed-files:
+      - any-glob-to-any-file:
+          - '.github/workflows/*.yml'
 
 ci:
-  - '.github/**'
-  - 'devtools/**'
+  - changed-files:
+      - any-glob-to-any-file:
+          - '.github/**'
+          - 'devtools/**'
+
+docs:
+  - changed-files:
+      - any-glob-to-any-file:
+          - '**/*.md'
+
+frontend:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'src/**'
+          - 'apps/frontend/**'
+
+backend:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'apps/backend/**'
