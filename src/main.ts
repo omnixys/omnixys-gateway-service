@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /**
  * @license GPL-3.0-or-later
  * Copyright (C) 2025 Caleb Gyamfi - Omnixys Technologies
@@ -153,7 +154,7 @@ async function bootstrap(): Promise<void> {
 
   /** Port-Definition (Standard: 4000) */
   const port = Number(config.get('PORT') ?? 4000);
-  const service = Number(config.get('SERVICE') ?? 'N/A');
+  const service = config.get('SERVICE') ?? 'N/A';
 
   // ======================================================
   // 🧩 VALIDATION
