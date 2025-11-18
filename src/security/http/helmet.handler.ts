@@ -1,44 +1,61 @@
 /**
- * Das Modul besteht aus Security-Funktionen für z.B. CSP, XSS, Click-Jacking,
- * HSTS und MIME-Sniffing, die durch Helmet bereitgestellt werden.
+ * @license GPL-3.0-or-later
+ * Copyright (C) 2025 Caleb Gyamfi - Omnixys Technologies
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
+ *
+ * For more information, visit <https://www.gnu.org/licenses/>.
+ */
+
+/**
+ * Security configuration module for Fastify.
+ * Provides HTTP security headers such as CSP, HSTS, X-Frame-Options,
+ * X-Content-Type-Options, and others through @fastify/helmet.
  * @packageDocumentation
  */
 
-// Alternative zu helmet: lusca von Kraken
-import { contentSecurityPolicy, frameguard, hidePoweredBy, hsts, noSniff, xssFilter } from 'helmet';
+import helmet from '@fastify/helmet';
+import type { NestFastifyApplication } from '@nestjs/platform-fastify';
 
 /**
- * Security-Funktionen für z.B. CSP, XSS, Click-Jacking, HSTS und MIME-Sniffing.
+ * Registers @fastify/helmet with predefined security settings.
+ *
+ * @param app Fastify instance
  */
-export const helmetHandlers = [
-    // CSP = Content Security Policy
-    contentSecurityPolicy({
-        useDefaults: true,
-        /* eslint-disable @stylistic/quotes */
-        directives: {
-            defaultSrc: ["https: 'self'"],
-            // fuer GraphQL IDE => GraphiQL
-            scriptSrc: ["https: 'unsafe-inline' 'unsafe-eval'"],
-            // fuer GraphQL IDE => GraphiQL
-            imgSrc: ["data: 'self'"],
-        },
-        /* eslint-enable @stylistic/quotes */
-        reportOnly: false,
-    }),
-
-    // XSS = Cross-site scripting attacks: Header X-XSS-Protection
-    xssFilter(),
-
-    // Clickjacking
-    frameguard(),
-
-    // HSTS = HTTP Strict Transport Security:
-    //   Header Strict-Transport-Security
-    hsts(),
-
-    // MIME-sniffing: im Header X-Content-Type-Options
-    noSniff(),
-
-    // Im Header z.B. "X-Powered-By: Express" unterdruecken
-    hidePoweredBy(),
-];
+export async function registerHelmet(
+  app: NestFastifyApplication,
+): Promise<void> {
+  await app.register(helmet, {
+    contentSecurityPolicy: {
+      useDefaults: true,
+      directives: {
+        defaultSrc: ["'self'", 'https:'],
+        scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", 'https:'],
+        imgSrc: ["'self'", 'data:'],
+      },
+      reportOnly: false,
+    },
+    // Strict Transport Security
+    hsts: {
+      maxAge: 31536000, // 1 year in seconds
+      includeSubDomains: true,
+      preload: true,
+    },
+    // Hide X-Powered-By header
+    hidePoweredBy: true,
+    // Prevent MIME sniffing
+    noSniff: true,
+    // Frameguard (click-jacking)
+    frameguard: {
+      action: 'sameorigin',
+    },
+  });
+}

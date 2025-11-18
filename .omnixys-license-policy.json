@@ -1,0 +1,12 @@
+{
+  "allowed": ["GPL-3.0"],
+  "forbidden": [
+    "AGPL",
+    "SSPL",
+    "GPL-1.0",
+    "MIT",
+    "Apache-2.0",
+    "BSD-3-Clause",
+    "ISC"
+  ]
+}

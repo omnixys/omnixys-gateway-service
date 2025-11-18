@@ -1,84 +1,86 @@
-import { resolve } from 'node:path';
-import pino from 'pino';
-import { PrettyOptions } from 'pino-pretty';
-import { config } from './app.js';
+/**
+ * @license GPL-3.0-or-later
+ * Copyright (C) 2025 Caleb Gyamfi - Omnixys Technologies
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
+ *
+ * For more information, visit <https://www.gnu.org/licenses/>.
+ */
+
 import { env } from './env.js';
+import { nodeConfig } from './node.js';
+import { resolve } from 'node:path';
+import pino, { type Logger } from 'pino';
+import type { DestinationStream } from 'pino';
+import { type PrettyOptions } from 'pino-pretty';
 
-const now = new Date();
-const dateStr = now.toISOString().split('T')[0]; // z. B. '2025-04-11'
-const service = 'notification';
+/**
+ * Dynamische Logger-Konfiguration für Omnixys-Microservices.
+ * Unterstützt Datei-Logging und farbige Console-Ausgabe.
+ */
+const { nodeEnv } = nodeConfig;
+const {
+  LOG_DEFAULT,
+  LOG_DIRECTORY,
+  LOG_FILE_DEFAULT_NAME,
+  LOG_PRETTY,
+  LOG_LEVEL,
+} = env;
 
-const logDirDefault = 'log';
-const logFileNameDefault = `${service}.${dateStr}.log`;
-const logFileDefault = resolve(logDirDefault, logFileNameDefault);
+const logFile = resolve(LOG_DIRECTORY, LOG_FILE_DEFAULT_NAME);
+const isProd = nodeEnv === 'production';
+const pretty = LOG_PRETTY && !isProd;
 
-const { log } = config;
+/** Standard-LogLevel */
+const logLevel = isProd ? 'info' : LOG_LEVEL;
 
-export const loggerDefaultValue =
-    env.LOG_DEFAULT?.toLowerCase() === 'true' || log?.default === true;
-
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-const logDir: string | undefined =
-    (log?.dir as string | undefined) === undefined ? undefined : log.dir.trimEnd();
-
-const logFile = logDir === undefined ? logFileDefault : resolve(logDir, logFileNameDefault);
-const pretty = log?.pretty === true;
-
-type LogLevel = 'error' | 'warn' | 'info' | 'debug';
-let logLevelTmp: LogLevel = 'info';
-if (env.LOG_DEFAULT !== undefined) {
-    logLevelTmp = env.LOG_DEFAULT as LogLevel;
-} else if (log?.level !== undefined) {
-    logLevelTmp = log?.level as LogLevel;
-}
-export const logLevel = logLevelTmp;
-
-//let logLevel = 'info';
-// if (
-//   log?.level === 'debug' &&
-//   nodeEnv !== 'production' &&
-//   nodeEnv !== 'PRODUCTION' &&
-//   !loggerDefaultValue
-// ) {
-//   logLevel = 'debug';
-// }
-
-if (!loggerDefaultValue) {
-    console.debug(
-        `logger config: logLevel=${logLevel}, logFile=${logFile}, pretty=${pretty}, loggerDefaultValue=${loggerDefaultValue}`,
-    );
-}
-
-const fileOptions = {
-    level: logLevel,
-    target: 'pino/file',
-    options: { destination: logFile, mkdir: true },
+/** Datei-Transport */
+const fileTarget = {
+  level: logLevel,
+  target: 'pino/file',
+  options: {
+    destination: logFile,
+    mkdir: true,
+  },
 };
-const prettyOptions: PrettyOptions = {
+
+/** Pretty-Transport */
+const prettyTarget = {
+  level: logLevel,
+  target: 'pino-pretty',
+  options: {
     translateTime: 'SYS:standard',
     singleLine: true,
     colorize: true,
     ignore: 'pid,hostname',
-};
-const prettyTransportOptions = {
-    level: logLevel,
-    target: 'pino-pretty',
-    options: prettyOptions,
-    redact: ['asd'],
+  } satisfies PrettyOptions,
 };
 
-const options: pino.TransportMultiOptions | pino.TransportSingleOptions = pretty
+/** Multi-Transport */
+const transports = pino.transport<Record<string, unknown>>(
+  pretty
     ? {
-          targets: [fileOptions, prettyTransportOptions],
+        targets: [fileTarget, prettyTarget],
       }
     : {
-          targets: [fileOptions],
-      };
-// in pino: type ThreadStream = any
-// type-coverage:ignore-next-line
-const transports = pino.transport(options); // eslint-disable-line @typescript-eslint/no-unsafe-assignment
+        targets: [fileTarget],
+      },
+) as unknown as DestinationStream;
 
-// https://github.com/pinojs/pino/issues/1160#issuecomment-944081187
-export const parentLogger: pino.Logger<string> = loggerDefaultValue
-    ? pino(pino.destination(logFileDefault))
-    : pino({ level: logLevel }, transports); // eslint-disable-line @typescript-eslint/no-unsafe-argument
+/** Haupt-Logger-Instanz */
+export const parentLogger: Logger = LOG_DEFAULT
+  ? pino(pino.destination(logFile))
+  : pino(
+      {
+        level: logLevel,
+      },
+      transports,
+    );

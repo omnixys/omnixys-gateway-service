@@ -1,22 +1,101 @@
-const {
-    NODE_ENV,
-    LOG_DEFAULT,
-    KEYS_PATH,
-    HTTPS,
-    SUBGRAPH_INVITATION_URL,
-    SUBGRAPH_AUTH_URL,
-    PORT,
-} = process.env;
+/**
+ * @license GPL-3.0-or-later
+ * Copyright (C) 2025 Caleb Gyamfi - Omnixys Technologies
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
+ *
+ * For more information, visit <https://www.gnu.org/licenses/>.
+ */
 
+import 'dotenv/config';
+import process from 'node:process';
+
+/**
+ * Environment variable configuration for the Node-based server.
+ *
+ * This file centralizes all environment parameters provided
+ * through `.env` or system variables.
+ *
+ * @remarks
+ * - All values are explicitly typed.
+ * - Missing variables get sensible defaults (only for DEV).
+ * - Booleans are converted correctly from "true"/"false" strings.
+ */
 export const env = {
-    NODE_ENV,
-    LOG_DEFAULT,
-    KEYS_PATH,
-    HTTPS,
-    SUBGRAPH_INVITATION_URL,
-    SUBGRAPH_AUTH_URL,
-    PORT,
+  /**
+   * Environment type:
+   * - `production` → Cloud/Production mode
+   * - `development` → Local development
+   * - `test` → Test execution
+   */
+  NODE_ENV: process.env.NODE_ENV ?? 'development',
+
+  SCHEMA_TARGET: process.env.SCHEMA_TARGET ?? 'true',
+
+  /** Default log settings */
+  LOG_DEFAULT: process.env.LOG_DEFAULT === 'true',
+  LOG_DIRECTORY: process.env.LOG_DIRECTORY ?? 'log',
+  LOG_FILE_DEFAULT_NAME: process.env.LOG_FILE_DEFAULT_NAME ?? 'server.log',
+  LOG_PRETTY: process.env.LOG_PRETTY === 'true',
+  LOG_LEVEL: process.env.LOG_LEVEL ?? 'info',
+
+  /** HTTPS enable flag */
+  HTTPS: process.env.HTTPS === 'true',
+
+  /** Path to key/certificate files */
+  KEYS_PATH: process.env.KEYS_PATH ?? './keys',
+
+  /** Tempo tracing endpoint */
+  TEMPO_URI: process.env.TEMPO_URI ?? '',
+
+  /** Port on which the Node/NestJS server runs */
+  PORT: Number(process.env.PORT ?? 4000),
+
+  /** Keycloak / OAuth client configuration */
+  KC_CLIENT_SECRET: process.env.KC_CLIENT_SECRET ?? '',
+  KC_URL: process.env.KC_URL ?? 'http://localhost:18080/auth',
+  KC_REALM: process.env.KC_REALM ?? 'camunda-platform',
+  KC_CLIENT_ID: process.env.KC_CLIENT_ID ?? 'camunda-identity',
+  KC_ADMIN_USERNAME: process.env.KC_ADMIN_USERNAME ?? 'admin',
+  KC_ADMIN_PASSWORD: process.env.KC_ADMIN_PASSWORD ?? 'admin',
+
+  /** Kafka configuration */
+  KAFKA_BROKER: process.env.KAFKA_BROKER ?? 'localhost:9092',
+  SERVICE: process.env.SERVICE ?? 'SERVICE',
+
+  /** Health endpoints */
+  KEYCLOAK_HEALTH_URL: process.env.KEYCLOAK_HEALTH_URL ?? '',
+  TEMPO_HEALTH_URL: process.env.TEMPO_HEALTH_URL ?? '',
+  PROMETHEUS_HEALTH_URL: process.env.PROMETHEUS_HEALTH_URL ?? '',
+
+  COOKIE_SECRET: process.env.COOKIE_SECRET ?? 'omnixys-default-secret',
+  REDIS_PC_JWE_KEY: process.env.REDIS_PC_JWE_KEY ?? '',
+  PC_JWE_KEY: process.env.PC_JWE_KEY ?? '',
+  PC_TTL_SEC: Number(process.env.PC_TTL_SEC ?? 60 * 60 * 24 * 30),
+  VALKEY_URL: process.env.VALKEY_URL ?? 'valkey://localhost:6380',
+
+  AUTHENTICATION_URI:
+    process.env.AUTHENTICATION_URI ?? 'localhost:7501/graphql',
+  EVENT_URI: process.env.EVENT_URI ?? 'localhost:7406/graphql',
+  INVITATION_URI: process.env.INVITATION_URI ?? 'localhost:7407/graphql',
+  TICKET_URI: process.env.TICKET_URI ?? 'localhost:7408/graphql',
+  NOTIFICATION_URI: process.env.NOTIFICATION_URI ?? 'localhost:7402/graphql',
 } as const;
 
-console.debug('NODE_ENV = %s', NODE_ENV);
-console.debug('NODE_ENV = %s', LOG_DEFAULT);
+// /**
+//  * Debug output:
+//  * Print all environment variables in non-production environments.
+//  */
+// if (process.env.NODE_ENV !== 'production') {
+//   console.log('================= ENVIRONMENT VARIABLES =================');
+//   console.log(JSON.stringify(env, null, 2));
+//   console.log('==========================================================');
+// }

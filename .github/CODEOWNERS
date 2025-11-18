@@ -1,0 +1,12 @@
+# Code-Owners für den omnixys-payment-service
+
+# Globale Zuständigkeit
+* @calebscript @omnixys-maintainers
+
+# Security-spezifische Pfade
+SECURITY.md @omnixys-security-team
+.github/workflows/security*.yml @omnixys-security-team
+
+# Gradle-Build
+build.gradle @calebscript
+settings.gradle @calebscript

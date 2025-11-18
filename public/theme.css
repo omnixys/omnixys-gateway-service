@@ -1,0 +1,22 @@
+:root {
+  --color-background: #f8f8fc;
+  --color-primary: #6A4BBC;
+  --color-accent: #4E3792;
+  --color-text: #312E81;
+}
+
+body {
+  background-color: var(--color-background);
+}
+
+.tsd-page-toolbar,
+.tsd-page-toolbar a,
+.tsd-page-toolbar button {
+  background-color: var(--color-primary) !important;
+  color: white !important;
+}
+
+.tsd-navigation a.current,
+.tsd-navigation a:hover {
+  color: var(--color-accent) !important;
+}
