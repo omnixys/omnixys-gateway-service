@@ -12,6 +12,9 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 
+
+const { AUTHENTICATION_URI, EVENT_URI, INVITATION_URI, TICKET_URI, USER_URI } = env;
+
 // === COOKIE-NORMALIZER + BASE HEADER ===
 
 // SameSite aus ENV sicher normalisieren
@@ -29,7 +32,6 @@ export const cookieBase = `Path=/; HttpOnly; SameSite=${normalizedSameSite}${
   secureCookie ? '; Secure' : ''
 }`;
 
-const { AUTHENTICATION_URI, EVENT_URI, INVITATION_URI, TICKET_URI } = env;
 function getCookieValue(name: string, cookieHeader: string | null): string | null {
   if (!cookieHeader) {
     return null;
@@ -200,6 +202,7 @@ function clearCookie(
             { name: 'event', url: EVENT_URI },
             { name: 'invitation', url: INVITATION_URI },
             { name: 'ticket', url: TICKET_URI },
+            { name: 'user', url: USER_URI },
             // { name: 'notification', url: N },
           ],
         }),

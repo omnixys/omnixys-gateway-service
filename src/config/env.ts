@@ -88,6 +88,7 @@ export const env = {
   INVITATION_URI: process.env.INVITATION_URI ?? 'localhost:7407/graphql',
   TICKET_URI: process.env.TICKET_URI ?? 'localhost:7408/graphql',
   NOTIFICATION_URI: process.env.NOTIFICATION_URI ?? 'localhost:7402/graphql',
+  USER_URI: process.env.USER_URI ?? 'localhost:7402/graphql',
 } as const;
 
 // /**
