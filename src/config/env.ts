@@ -54,7 +54,7 @@ export const env = {
   KEYS_PATH: process.env.KEYS_PATH ?? './keys',
 
   /** Tempo tracing endpoint */
-  TEMPO_URI: process.env.TEMPO_URI ?? '',
+  TEMPO_URI: process.env.TEMPO_URI ?? 'http://localhost:4318/v1/traces',
 
   /** Port on which the Node/NestJS server runs */
   PORT: Number(process.env.PORT ?? 4000),
@@ -77,18 +77,20 @@ export const env = {
   PROMETHEUS_HEALTH_URL: process.env.PROMETHEUS_HEALTH_URL ?? '',
 
   COOKIE_SECRET: process.env.COOKIE_SECRET ?? 'omnixys-default-secret',
-  REDIS_PC_JWE_KEY: process.env.REDIS_PC_JWE_KEY ?? '',
+
   PC_JWE_KEY: process.env.PC_JWE_KEY ?? '',
   PC_TTL_SEC: Number(process.env.PC_TTL_SEC ?? 60 * 60 * 24 * 30),
   VALKEY_URL: process.env.VALKEY_URL ?? 'valkey://localhost:6380',
+  VALKEY_PASSWORD: process.env.VALKEY_PASSWORD ?? 'DeinStarkesPasswort',
 
   AUTHENTICATION_URI:
     process.env.AUTHENTICATION_URI ?? 'localhost:7501/graphql',
   EVENT_URI: process.env.EVENT_URI ?? 'localhost:7406/graphql',
   INVITATION_URI: process.env.INVITATION_URI ?? 'localhost:7407/graphql',
   TICKET_URI: process.env.TICKET_URI ?? 'localhost:7408/graphql',
-  NOTIFICATION_URI: process.env.NOTIFICATION_URI ?? 'localhost:7402/graphql',
+  NOTIFICATION_URI: process.env.NOTIFICATION_URI ?? 'localhost:3005/graphql',
   USER_URI: process.env.USER_URI ?? 'localhost:7402/graphql',
+  SEAT_URI: process.env.SEAT_URI ?? 'localhost:7409/graphql',
 } as const;
 
 // /**

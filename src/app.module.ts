@@ -6,31 +6,47 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 // /Users/gentlebookpro/Projekte/checkpoint/backend/gateway/src/app.module.ts
 import { env } from './config/env.js';
+import { HandlerModule } from './handlers/handler.module.js';
+import { KafkaModule } from './messaging/kafka.module.js';
+import { SubscriptionServerModule } from './subscriptions/subscription.module.js';
 import { IntrospectAndCompose, RemoteGraphQLDataSource } from '@apollo/gateway';
 import { ApolloGatewayDriver, ApolloGatewayDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 
+const {
+  AUTHENTICATION_URI,
+  EVENT_URI,
+  INVITATION_URI,
+  TICKET_URI,
+  USER_URI,
+  SEAT_URI,
+  NOTIFICATION_URI,
+} = env;
 
-const { AUTHENTICATION_URI, EVENT_URI, INVITATION_URI, TICKET_URI, USER_URI } = env;
-
-// === COOKIE-NORMALIZER + BASE HEADER ===
-
-// SameSite aus ENV sicher normalisieren
-const rawSameSite = (process.env.COOKIE_SAMESITE ?? 'lax').toLowerCase();
-const normalizedSameSite = (rawSameSite.charAt(0).toUpperCase() + rawSameSite.slice(1)) as
-  | 'Lax'
-  | 'Strict'
-  | 'None';
+export interface AuthToken {
+  accessToken: string;
+  expiresIn: number;
+  refreshToken: string;
+  refreshExpiresIn: number;
+  idToken: string;
+  scope: string;
+}
 
 // Secure Flag
 export const secureCookie = process.env.COOKIE_SECURE === 'true';
 
 // Basis für alle Cookies
-export const cookieBase = `Path=/; HttpOnly; SameSite=${normalizedSameSite}${
-  secureCookie ? '; Secure' : ''
-}`;
+const isProd = process.env.NODE_ENV === 'production';
+
+export const timerCookieBase = isProd
+  ? `Path=/; SameSite=None; Secure; Domain=.omnixys.com`
+  : `Path=/; SameSite=Lax`;
+
+export const cookieBase = isProd
+  ? `Path=/; HttpOnly; SameSite=None; Secure; Domain=.omnixys.com`
+  : `Path=/; HttpOnly; SameSite=Lax`;
 
 function getCookieValue(name: string, cookieHeader: string | null): string | null {
   if (!cookieHeader) {
@@ -121,24 +137,26 @@ function appendCookieHeaders(ctx: any) {
   // --- Logout ---
   const didLogout = data?.logout?.ok ?? false;
   if (didLogout) {
-    const sameSite = normalizedSameSite;
+    const sameSite = isProd ? 'none' : 'lax';
     const secure = process.env.COOKIE_SECURE === 'true';
 
     http.headers.set('set-cookie', [
       clearCookie('access_token', { sameSite, secure }),
       clearCookie('refresh_token', { sameSite, secure }),
+      clearCookie('access_expires_at', { sameSite, secure }),
     ]);
     return;
   }
 
   // --- Login / Refresh ---
-  const authPayload = data?.login ?? data?.refresh ?? data?.authenticate;
+  const authPayload: AuthToken = data?.login ?? data?.refresh ?? data?.authenticate;
   if (!authPayload) {
     return;
   }
 
   const accessToken = authPayload?.accessToken;
   const refreshToken = authPayload?.refreshToken;
+  const expiresAt = Date.now() + (authPayload?.expiresIn ?? 300) * 1000;
 
   if (!accessToken || !refreshToken) {
     return;
@@ -147,12 +165,13 @@ function appendCookieHeaders(ctx: any) {
   http.headers.set('set-cookie', [
     `access_token=${accessToken}; Max-Age=${authPayload?.expiresIn ?? 300}; ${cookieBase}`,
     `refresh_token=${refreshToken}; Max-Age=${authPayload?.refreshExpiresIn ?? 1800}; ${cookieBase}`,
+    `access_expires_at=${expiresAt}; Max-Age=${authPayload?.expiresIn ?? 300}; ${timerCookieBase}`,
   ]);
 }
 
 function clearCookie(
   name: string,
-  opts?: { secure?: boolean; sameSite?: 'Lax' | 'Strict' | 'None' },
+  opts?: { secure?: boolean; sameSite?: 'lax' | 'Strict' | 'none' },
 ) {
   const parts: string[] = [
     `${name}=`,
@@ -162,9 +181,19 @@ function clearCookie(
     `Expires=Thu, 01 Jan 1970 00:00:00 GMT`,
     `SameSite=${opts?.sameSite ?? 'Lax'}`,
   ];
+  // HttpOnly MUSS identisch sein
+  parts.push(`HttpOnly`);
+
+  // Secure MUSS identisch sein
   if (opts?.secure) {
     parts.push(`Secure`);
   }
+
+  // Domain MUSS identisch sein (PROD!)
+  if (process.env.NODE_ENV === 'production') {
+    parts.push(`Domain=.omnixys.com`);
+  }
+
   return parts.join('; ');
 }
 
@@ -197,20 +226,22 @@ function clearCookie(
       gateway: {
         // Federation v2 via Introspect & Compose
         supergraphSdl: new IntrospectAndCompose({
+          pollIntervalInMs: 10_000,
           subgraphs: [
             { name: 'authentication', url: AUTHENTICATION_URI },
             { name: 'event', url: EVENT_URI },
             { name: 'invitation', url: INVITATION_URI },
             { name: 'ticket', url: TICKET_URI },
             { name: 'user', url: USER_URI },
-            // { name: 'notification', url: N },
+            { name: 'notification', url: NOTIFICATION_URI },
+            { name: 'seat', url: SEAT_URI },
           ],
         }),
 
         // RemoteGraphQLDataSource: hier leiten wir Headers an die Subgraphs weiter
         buildService: ({ url }) =>
           new (class extends RemoteGraphQLDataSource {
-            override willSendRequest({ request, context }: any) {
+            override async willSendRequest({ request, context }: any) {
               // 3) Introspection Marker (nur falls du auf Subgraph-Seite unterscheiden möchtest)
               if (context?.isIntrospection) {
                 request.http?.headers.set('x-introspection', 'true');
@@ -244,6 +275,9 @@ function clearCookie(
           })({ url }),
       },
     }),
+    SubscriptionServerModule,
+    KafkaModule,
+    HandlerModule,
   ],
 })
 export class AppModule {}

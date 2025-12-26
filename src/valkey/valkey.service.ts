@@ -6,7 +6,7 @@ import { env } from '../config/env.js';
 import { Injectable, OnModuleInit, OnModuleDestroy } from '@nestjs/common';
 import { createClient, ValkeyClientType } from '@valkey/client';
 
-const { VALKEY_URL } = env;
+const { VALKEY_URL, VALKEY_PASSWORD } = env;
 
 @Injectable()
 export class ValkeyService implements OnModuleInit, OnModuleDestroy {
@@ -15,6 +15,7 @@ export class ValkeyService implements OnModuleInit, OnModuleDestroy {
   constructor() {
     this.client = createClient({
       url: VALKEY_URL,
+      password: VALKEY_PASSWORD,
     });
   }
 

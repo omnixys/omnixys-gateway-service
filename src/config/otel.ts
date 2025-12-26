@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/require-await */
 /**
  * @license GPL-3.0-or-later
  * © 2025 Caleb Gyamfi - Omnixys Technologies
@@ -25,10 +26,10 @@ import { NodeSDK } from '@opentelemetry/sdk-node';
 import { LoggerPlus } from '../logger/logger-plus.js';
 import { env } from './env.js';
 
-// OTLP Collector – NICHT Tempo
-const OTEL_COLLECTOR = 'http://localhost:4318/v1/traces';
+const { SERVICE, TEMPO_URI, PORT } = env;
 
-const { SERVICE } = env;
+// OTLP Collector – NICHT Tempo
+const OTEL_COLLECTOR = TEMPO_URI;
 
 diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.INFO);
 
@@ -61,11 +62,13 @@ export async function startOtelSDK(): Promise<void> {
 
   const prometheusExporter = new PrometheusExporter(
     {
-      port: 9464,
+      port: PORT + 10000,
       endpoint: '/metrics',
     },
     () => {
-      logger.log('📊 Prometheus läuft auf http://localhost:9464/metrics');
+      logger.log(
+        `📊 Prometheus läuft auf http://localhost:${PORT + 10000}/metrics`,
+      );
     },
   );
 
@@ -81,18 +84,10 @@ export async function startOtelSDK(): Promise<void> {
     metricReaders: [prometheusExporter],
 
     instrumentations: getNodeAutoInstrumentations({
-      '@opentelemetry/instrumentation-http': {
-        enabled: true,
-      },
-      '@opentelemetry/instrumentation-nestjs-core': {
-        enabled: true,
-      },
-      '@opentelemetry/instrumentation-express': {
-        enabled: true,
-      },
-      '@opentelemetry/instrumentation-kafkajs': {
-        enabled: true,
-      },
+      '@opentelemetry/instrumentation-http': { enabled: true },
+      '@opentelemetry/instrumentation-nestjs-core': { enabled: true },
+      '@opentelemetry/instrumentation-express': { enabled: true },
+      '@opentelemetry/instrumentation-kafkajs': { enabled: true },
     }),
   });
 

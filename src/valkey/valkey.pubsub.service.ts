@@ -8,12 +8,19 @@ import { env } from '../config/env.js';
 import { Injectable, OnModuleInit, OnModuleDestroy } from '@nestjs/common';
 import { createClient } from '@valkey/client';
 
-const { VALKEY_URL } = env;
+const { VALKEY_URL, VALKEY_PASSWORD } = env;
 
 @Injectable()
 export class ValkeyPubSubService implements OnModuleInit, OnModuleDestroy {
-  publisher = createClient({ url: VALKEY_URL });
-  subscriber = createClient({ url: VALKEY_URL });
+  publisher = createClient({
+    url: VALKEY_URL,
+    password: VALKEY_PASSWORD,
+  });
+
+  subscriber = createClient({
+    url: VALKEY_URL,
+    password: VALKEY_PASSWORD,
+  });
 
   async onModuleInit() {
     await this.publisher.connect();

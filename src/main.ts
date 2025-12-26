@@ -152,6 +152,15 @@ async function bootstrap(): Promise<void> {
     secret: process.env.COOKIE_SECRET ?? 'omnixys-default-secret',
   });
 
+  // const multipart = (await import('@fastify/multipart')).default;
+
+  // await app.register(multipart, {
+  //   attachFieldsToBody: true,
+  //   limits: {
+  //     fileSize: 10 * 1024 * 1024, // 10 MB
+  //   },
+  // });
+
   /** Port-Definition (Standard: 4000) */
   const port = Number(config.get('PORT') ?? 4000);
   const service = config.get('SERVICE') ?? 'N/A';

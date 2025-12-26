@@ -15,11 +15,11 @@
  */
 
 import { LoggerPlusService, setGlobalKafkaProducer } from '../logger/logger-plus.service.js';
+import { UserSignedUpPayload } from '../subscriptions/models/payloads/user-signup.payload.js';
 import type { TraceContext } from '../trace/trace-context.util.js';
 import type { KafkaEnvelope } from './decorators/kafka-envelope.type.js';
 import { KafkaHeaderBuilder } from './kafka-header-builder.js';
-import { KafkaTopics } from './kafka-topic.properties.js';
-// import { KafkaTopics } from './kafka-topic.properties.js';
+import { getTopic } from './kafka-topic.properties.js';
 import { Inject, Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
 import type { Producer, ProducerRecord } from 'kafkajs';
 
@@ -79,23 +79,19 @@ export class KafkaProducerService implements OnModuleInit, OnModuleDestroy {
    * @param service - Ursprungs-Service
    * @param trace - Optionaler Tracing-Kontext
    */
-  async addSeatID(
-    payload: {
-      seatId: string;
-      guestProfileId: string;
-      eventId: string;
-    },
+  async userSignedUp(
+    payload: UserSignedUpPayload,
     service: string,
     trace?: TraceContext,
   ): Promise<void> {
     const envelope: KafkaEnvelope<typeof payload> = {
-      invitation: 'addSeatId',
+      invitation: 'notifyUser',
       service,
       version: 'v1',
       trace,
       payload,
     };
-    await this.send(KafkaTopics.ticket.addSeat, envelope, trace);
+    await this.send(getTopic('sendCredentials'), envelope, trace);
   }
 
   async disconnect(): Promise<void> {

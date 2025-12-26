@@ -25,11 +25,8 @@ const { SERVICE } = env;
  */
 export const KafkaTopics = {
   [SERVICE]: {
-    receiveUserId: `${SERVICE}.sendId.authentication`,
-    receiveUserUpdate: `${SERVICE}.updateUser.authentication`,
-  },
-  ticket: {
-    addSeat: 'ticket.add.seat',
+    sendCredentials: `${SERVICE}.send.notification`,
+    broadcastDiff: `${SERVICE}.broadcastDiff.seat`,
   },
   logstream: {
     log: `logstream.log.${SERVICE}`,
