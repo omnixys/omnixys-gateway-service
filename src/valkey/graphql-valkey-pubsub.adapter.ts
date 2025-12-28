@@ -1,3 +1,8 @@
+/* eslint-disable @typescript-eslint/no-this-alias */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/prefer-promise-reject-errors */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { ValkeyPubSubService } from './valkey.pubsub.service.js';
@@ -41,7 +46,9 @@ export class GraphQLValkeyPubSubAdapter extends PubSubEngine {
             self.valkey.subscribe(trigger, (msg) => {
               const set = self.listeners.get(trigger);
               if (set) {
-                for (const fn of set) fn(msg);
+                for (const fn of set) {
+                  fn(msg);
+                }
               }
             });
           }

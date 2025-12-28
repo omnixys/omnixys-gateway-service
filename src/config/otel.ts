@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/require-await */
 /**
  * @license GPL-3.0-or-later
  * © 2025 Caleb Gyamfi - Omnixys Technologies
