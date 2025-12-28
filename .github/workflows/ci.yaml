@@ -76,13 +76,13 @@ env:
   POSTGRES_TEST_DB: ${{ secrets.POSTGRES_TEST_DB }}
   POSTGRES_TEST_URL: postgres://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@localhost:5433/${{ secrets.POSTGRES_DB }}
 
-  AUTHENTICATION_URI: ${{ secrests.AUTHENTICATION_URI }}
-  EVENT_URI:  ${{ secrests.EVENT_URI }}
-  INVITATION_URI: ${{ secrests.INVITATION_URI }}
-  TICKET_URI: ${{ secrests.TICKET_URI }}
-  SEAT_URI: ${{ secrests.SEAT_URI }}
-  NOTIFICATION_URI: ${{ secrests.NOTIFICATION_URI }}
-  USER_URI: ${{ secrests.USER_URI }}
+  AUTHENTICATION_URI: ${{ secrets.AUTHENTICATION_URI }}
+  EVENT_URI:  ${{ secrets.EVENT_URI }}
+  INVITATION_URI: ${{ secrets.INVITATION_URI }}
+  TICKET_URI: ${{ secrets.TICKET_URI }}
+  SEAT_URI: ${{ secrets.SEAT_URI }}
+  NOTIFICATION_URI: ${{ secrets.NOTIFICATION_URI }}
+  USER_URI: ${{ secrets.USER_URI }}
 
 jobs:
   ci:
