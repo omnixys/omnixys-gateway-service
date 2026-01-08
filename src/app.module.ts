@@ -15,6 +15,7 @@ import { ApolloGatewayDriver, ApolloGatewayDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
+import { HealthModule } from './health/health.module.js';
 
 const {
   AUTHENTICATION_URI,
@@ -279,6 +280,7 @@ function clearCookie(
     SubscriptionServerModule,
     KafkaModule,
     HandlerModule,
+    HealthModule,
   ],
 })
 export class AppModule {}
