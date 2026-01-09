@@ -4,39 +4,22 @@ on:
   push:
     branches: [main]
 
+env:
+      SERVICE: ${{ secrets.SERVICE }}
+
 jobs:
   deploy:
-    runs-on: ubuntu-latest
-
+    runs-on: [self-hosted, omnixys-prod]
+    concurrency:
+      group: omnixys-prod
+      cancel-in-progress: false
+    
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup SSH
+      - name: Deploy ${{ env.SERVICE }}
         run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SERVER_SSH_KEY }}" | base64 -d > ~/.ssh/omnixys_ci
-          chmod 600 ~/.ssh/omnixys_ci
-          ssh-keyscan -H api.omnixys.com >> ~/.ssh/known_hosts
+          set -e
+          cd /opt/omnixys/compose
 
-      - name: Deploy service
-        run: |
-          ssh -i ~/.ssh/omnixys_ci root@api.omnixys.com << EOF
-            set -e
-
-            SERVICE="${{ secrets.SERVICE }}"
-
-            echo "📦 Deploying service: \$SERVICE"
-            cd /opt/omnixys/compose
-
-            echo "🔄 Pulling image"
-            docker compose pull \$SERVICE
-
-            echo "🚀 Restarting container"
-            docker compose up -d \$SERVICE
-
-            echo "🧹 Cleaning old images"
-            docker image prune -f --filter "until=168h"
-
-            echo "✅ Deploy of \$SERVICE finished"
-          EOF
+          echo "🚀 Deploying service: $SERVICE"
+          docker compose pull "$SERVICE"
+          docker compose up -d "$SERVICE"
