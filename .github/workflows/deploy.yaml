@@ -1,0 +1,40 @@
+name: Deploy Omnixys Service
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SERVER_SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H api.omnixys.com >> ~/.ssh/known_hosts
+
+      - name: Deploy ${{ secrets.SERVICE }} service
+        run: |
+          ssh root@api.omnixys.com << 'EOF'
+            set -e
+
+            cd /opt/omnixys/compose
+
+            SERVICE=${{ secrets.SERVICE }}
+
+            echo "🔄 Pulling image for $SERVICE"
+            docker compose pull $SERVICE
+
+            echo "🚀 Restarting $SERVICE"
+            docker compose up -d $SERVICE
+
+            echo "🧹 Cleaning unused images"
+            docker image prune -f
+          EOF

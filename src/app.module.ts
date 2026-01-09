@@ -8,6 +8,7 @@
 // /Users/gentlebookpro/Projekte/checkpoint/backend/gateway/src/app.module.ts
 import { env } from './config/env.js';
 import { HandlerModule } from './handlers/handler.module.js';
+import { HealthModule } from './health/health.module.js';
 import { KafkaModule } from './messaging/kafka.module.js';
 import { SubscriptionServerModule } from './subscriptions/subscription.module.js';
 import { IntrospectAndCompose, RemoteGraphQLDataSource } from '@apollo/gateway';
@@ -15,7 +16,6 @@ import { ApolloGatewayDriver, ApolloGatewayDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
-import { HealthModule } from './health/health.module.js';
 
 const {
   AUTHENTICATION_URI,
@@ -36,8 +36,7 @@ export interface AuthToken {
   scope: string;
 }
 
-// Secure Flag
-export const secureCookie = process.env.COOKIE_SECURE === 'true';
+export type SameSite = 'Lax' | 'Strict' | 'None';
 
 // Basis für alle Cookies
 const isProd = process.env.NODE_ENV === 'production';
@@ -139,8 +138,8 @@ function appendCookieHeaders(ctx: any) {
   // --- Logout ---
   const didLogout = data?.logout?.ok ?? false;
   if (didLogout) {
-    const sameSite = isProd ? 'none' : 'lax';
-    const secure = process.env.COOKIE_SECURE === 'true';
+    const sameSite: SameSite = isProd ? 'None' : 'Lax';
+    const secure = isProd;
 
     http.headers.set('set-cookie', [
       clearCookie('access_token', { sameSite, secure }),
@@ -171,10 +170,7 @@ function appendCookieHeaders(ctx: any) {
   ]);
 }
 
-function clearCookie(
-  name: string,
-  opts?: { secure?: boolean; sameSite?: 'lax' | 'Strict' | 'none' },
-) {
+function clearCookie(name: string, opts?: { secure?: boolean; sameSite?: SameSite }) {
   const parts: string[] = [
     `${name}=`,
     `Path=/`,
@@ -183,16 +179,13 @@ function clearCookie(
     `Expires=Thu, 01 Jan 1970 00:00:00 GMT`,
     `SameSite=${opts?.sameSite ?? 'Lax'}`,
   ];
-  // HttpOnly MUSS identisch sein
-  parts.push(`HttpOnly`);
-
   // Secure MUSS identisch sein
   if (opts?.secure) {
     parts.push(`Secure`);
   }
 
   // Domain MUSS identisch sein (PROD!)
-  if (process.env.NODE_ENV === 'production') {
+  if (isProd) {
     parts.push(`Domain=.omnixys.com`);
   }
 
@@ -228,7 +221,7 @@ function clearCookie(
       gateway: {
         // Federation v2 via Introspect & Compose
         supergraphSdl: new IntrospectAndCompose({
-          pollIntervalInMs: 10_000,
+          pollIntervalInMs: isProd ? 60_000 : 10_000,
           subgraphs: [
             { name: 'authentication', url: AUTHENTICATION_URI },
             { name: 'event', url: EVENT_URI },
