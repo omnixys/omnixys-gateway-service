@@ -15,13 +15,13 @@ jobs:
       - name: Setup SSH
         run: |
           mkdir -p ~/.ssh
-          cat << 'EOF' > ~/.ssh/id_ed25519 ${{ secrets.SERVER_SSH_KEY }} EOF
-          chmod 600 ~/.ssh/id_ed25519
+          echo "${{ secrets.SERVER_SSH_KEY }}" | base64 -d > ~/.ssh/omnixys_ci
+          chmod 600 ~/.ssh/omnixys_ci
           ssh-keyscan -H api.omnixys.com >> ~/.ssh/known_hosts
 
       - name: Deploy service
         run: |
-          ssh root@api.omnixys.com << EOF
+          ssh -i ~/.ssh/omnixys_ci root@api.omnixys.com << EOF
             set -e
 
             SERVICE="${{ secrets.SERVICE }}"
