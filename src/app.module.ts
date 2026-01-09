@@ -36,18 +36,18 @@ export interface AuthToken {
   scope: string;
 }
 
-export type SameSite = 'Lax' | 'Strict' | 'None';
+export type SameSite = 'lax' | 'strict' | 'none';
 
 // Basis für alle Cookies
 const isProd = process.env.NODE_ENV === 'production';
 
 export const timerCookieBase = isProd
-  ? `Path=/; SameSite=None; Secure; Domain=.omnixys.com`
-  : `Path=/; SameSite=Lax`;
+  ? `Path=/; SameSite=none; Secure; Domain=.omnixys.com`
+  : `Path=/; SameSite=lax`;
 
 export const cookieBase = isProd
-  ? `Path=/; HttpOnly; SameSite=None; Secure; Domain=.omnixys.com`
-  : `Path=/; HttpOnly; SameSite=Lax`;
+  ? `Path=/; HttpOnly; SameSite=none; Secure; Domain=.omnixys.com`
+  : `Path=/; HttpOnly; SameSite=lax`;
 
 function getCookieValue(name: string, cookieHeader: string | null): string | null {
   if (!cookieHeader) {
@@ -138,7 +138,7 @@ function appendCookieHeaders(ctx: any) {
   // --- Logout ---
   const didLogout = data?.logout?.ok ?? false;
   if (didLogout) {
-    const sameSite: SameSite = isProd ? 'None' : 'Lax';
+    const sameSite: SameSite = isProd ? 'none' : 'lax';
     const secure = isProd;
 
     http.headers.set('set-cookie', [
@@ -177,7 +177,7 @@ function clearCookie(name: string, opts?: { secure?: boolean; sameSite?: SameSit
     `HttpOnly`,
     `Max-Age=0`,
     `Expires=Thu, 01 Jan 1970 00:00:00 GMT`,
-    `SameSite=${opts?.sameSite ?? 'Lax'}`,
+    `SameSite=${opts?.sameSite ?? 'lax'}`,
   ];
   // Secure MUSS identisch sein
   if (opts?.secure) {
