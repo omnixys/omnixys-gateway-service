@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 env:
-  SERVICE: gateway
+  SERVICE: ${{ secrets.SERVICE }}
   DOCKER_USER: ${{ secrets.DOCKER_USER }}
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
@@ -29,5 +29,5 @@ jobs:
           cd /opt/omnixys/compose
 
           echo "🚀 Deploying service: $SERVICE"
-          docker pull omnixys-"$SERVICE"-service
+          docker pull omnixys/"$SERVICE"-service
           docker compose up -d "$SERVICE"
