@@ -21,5 +21,5 @@ jobs:
           cd /opt/omnixys/compose
 
           echo "🚀 Deploying service: $SERVICE"
-          docker compose pull omnixys-"$SERVICE"-service
+          docker pull omnixys-"$SERVICE"-service
           docker compose up -d "$SERVICE"
