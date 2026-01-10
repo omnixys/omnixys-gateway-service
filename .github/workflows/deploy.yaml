@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 env:
-      SERVICE: ${{ env.SERVICE }}
+      SERVICE: ${{ secrets.SERVICE }}
 
 jobs:
   deploy:
