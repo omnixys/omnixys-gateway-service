@@ -26,7 +26,7 @@ jobs:
       - name: Deploy ${{ env.SERVICE }}
         run: |
           set -e
-          cd /opt/omnixys/compose
+          cd /opt/omnixys/compose/app/backend
 
           echo "🚀 Deploying service: $SERVICE"
           docker pull omnixys/"$SERVICE"-service
