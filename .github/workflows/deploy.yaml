@@ -30,4 +30,19 @@ jobs:
 
           echo "🚀 Deploying service: $SERVICE"
           docker pull omnixys/"$SERVICE"-service
-          docker compose up -d "$SERVICE"
+          docker image prune -f
+          docker compose up -d --no-deps "$SERVICE"
+
+          echo "⏳ Waiting for health..."
+          for i in {1..30}; do
+            STATUS=$(docker inspect --format='{{.State.Health.Status}}' "omnixys-$SERVICE")
+            if [ "$STATUS" = "healthy" ]; then
+              echo "✅ $SERVICE is healthy"
+              exit 0
+            fi
+            sleep 2
+          done
+
+          echo "❌ $SERVICE did not become healthy"
+          exit 1
+
