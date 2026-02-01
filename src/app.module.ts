@@ -19,10 +19,10 @@ import { GraphQLModule } from '@nestjs/graphql';
 
 const {
   AUTHENTICATION_URI,
+  USER_URI,
   EVENT_URI,
   INVITATION_URI,
   TICKET_URI,
-  USER_URI,
   SEAT_URI,
   NOTIFICATION_URI,
 } = env;
@@ -224,10 +224,10 @@ function clearCookie(name: string, opts?: { secure?: boolean; sameSite?: SameSit
           pollIntervalInMs: isProd ? 60_000 : 10_000,
           subgraphs: [
             { name: 'authentication', url: AUTHENTICATION_URI },
+            { name: 'user', url: USER_URI },
             { name: 'event', url: EVENT_URI },
             { name: 'invitation', url: INVITATION_URI },
             { name: 'ticket', url: TICKET_URI },
-            { name: 'user', url: USER_URI },
             { name: 'notification', url: NOTIFICATION_URI },
             { name: 'seat', url: SEAT_URI },
           ],
