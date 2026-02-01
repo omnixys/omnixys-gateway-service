@@ -1,8 +1,11 @@
 name: Deploy Omnixys Service
 
 on:
-  push:
-    branches: [main]
+  # push:
+  #   branches: [main]
+  workflow_run:
+    workflows: ['Docker Build & Push – Omnixys']
+    types: [completed]
 
 env:
   SERVICE: ${{ secrets.SERVICE }}
@@ -11,6 +14,7 @@ env:
 
 jobs:
   deploy:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: [self-hosted, omnixys-prod]
     concurrency:
       group: omnixys-prod
