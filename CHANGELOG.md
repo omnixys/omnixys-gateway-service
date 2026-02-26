@@ -2,6 +2,11 @@
 
 All notable changes in this project will be documented in this file.
 
+## <small>1.0.1 (2026-02-26)</small>
+
+- fix(graph): fix address subgraph ([a67a66be2fda8e54f57f46c7560e551fa65debea](https://github.com/omnixys/omnixys-gateway-service/commit/a67a66be2fda8e54f57f46c7560e551fa65debea))
+- Merge branch 'main' of https://github.com/omnixys/omnixys-gateway-service ([ab214814967d799d9ece7dad185a8b3b413af596](https://github.com/omnixys/omnixys-gateway-service/commit/ab214814967d799d9ece7dad185a8b3b413af596))
+
 ## 1.0.0 (2026-02-26)
 
 - fix(ci): add keycloak.realm ([8a7c14261778c0bd9643df515671f7825a4048e2](https://github.com/omnixys/omnixys-gateway-service/commit/8a7c14261778c0bd9643df515671f7825a4048e2))
