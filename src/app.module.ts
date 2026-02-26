@@ -25,7 +25,7 @@ const {
   TICKET_URI,
   SEAT_URI,
   NOTIFICATION_URI,
-  ATLAXYS_URI,
+  ADDRESS_URI,
 } = env;
 
 export interface AuthToken {
@@ -231,7 +231,7 @@ function clearCookie(name: string, opts?: { secure?: boolean; sameSite?: SameSit
             { name: 'ticket', url: TICKET_URI },
             { name: 'notification', url: NOTIFICATION_URI },
             { name: 'seat', url: SEAT_URI },
-            { name: 'atlaxys', url: ATLAXYS_URI },
+            { name: 'address', url: ADDRESS_URI },
           ],
         }),
 
