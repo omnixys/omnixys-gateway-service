@@ -62,7 +62,7 @@ function normalizeForLogging(arg: unknown): unknown {
  * LoggerPlus
  * - schreibt nach Pino
  * - erstellt OTEL-Spans
- * - sendet parallel Fire-and-Forget-Kafka-Invitation
+ * - sendet parallel Fire-and-Forget-Kafka-Gateway
  */
 export class LoggerPlus {
   private traceContext?: TraceContext;
@@ -131,7 +131,7 @@ export class LoggerPlus {
 
             // Fire-and-Forget: blockiert nicht
             void producer.send(KafkaTopics.logstream.log, {
-              invitation: 'log',
+              event: 'log',
               service: this.serviceName,
               version: 'v1',
               trace: traceCtx,

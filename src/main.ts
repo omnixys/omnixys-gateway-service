@@ -217,6 +217,6 @@ async function bootstrap(): Promise<void> {
  * Startet die Anwendung.
  *
  * Wird asynchron aufgerufen und ignoriert Rückgabewerte,
- * da NestJS den Invitation-Loop selbst verwaltet.
+ * da NestJS den Event-Loop selbst verwaltet.
  */
 void bootstrap();

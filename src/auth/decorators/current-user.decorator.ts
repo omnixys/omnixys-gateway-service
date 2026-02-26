@@ -35,33 +35,33 @@ export const CurrentUser = createParamDecorator(
     const gqlCtx = GqlExecutionContext.create(context);
     const req: FastifyRequest = gqlCtx.getContext().req;
 
-    const invitation = req.invitation;
+    const user = req.user;
 
-    if (!invitation) {
+    if (!user) {
       return null;
     }
 
     return {
-      id: invitation.sub,
-      username: invitation.preferred_username,
-      email: invitation.email,
+      id: user.sub,
+      username: user.preferred_username,
+      email: user.email,
 
-      firstName: invitation.given_name,
-      lastName: invitation.family_name,
+      firstName: user.given_name,
+      lastName: user.family_name,
 
-      roles: invitation.realm_access?.roles ?? [],
+      roles: user.realm_access?.roles ?? [],
 
-      access_token: invitation.access_token,
-      refresh_token: invitation.refresh_token,
+      access_token: user.access_token,
+      refresh_token: user.refresh_token,
 
-      raw: invitation.raw,
+      raw: user.raw,
 
       // duplicated raw fields
-      sub: invitation.sub,
-      preferred_username: invitation.preferred_username,
-      given_name: invitation.given_name,
-      family_name: invitation.family_name,
-      realm_access: invitation.realm_access,
+      sub: user.sub,
+      preferred_username: user.preferred_username,
+      given_name: user.given_name,
+      family_name: user.family_name,
+      realm_access: user.realm_access,
     };
   },
 );

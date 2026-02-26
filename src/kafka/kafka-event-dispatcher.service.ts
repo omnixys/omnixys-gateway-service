@@ -32,7 +32,7 @@ export function safeString(value: unknown, fallback = ''): string {
 }
 
 /**
- * Kafka Invitation Dispatcher.
+ * Kafka Event Dispatcher.
  * Scans for all classes annotated with `@KafkaHandler`
  * and automatically wires their `@KafkaEvent`-decorated methods.
  */

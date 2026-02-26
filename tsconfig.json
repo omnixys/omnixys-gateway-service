@@ -17,7 +17,7 @@
 
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "display": "Omnixys Invitation Service",
+  "display": "Omnixys Gateway Service",
   "extends": ["@tsconfig/node23"],
 
   "compilerOptions": {

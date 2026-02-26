@@ -38,7 +38,7 @@ export class HeaderAuthGuard implements CanActivate {
 
     const roles = extractUserRoles(payload);
 
-    const invitation: CurrentUserData = {
+    const user: CurrentUserData = {
       id: payload.sub,
       username: payload.preferred_username,
       firstName: payload.given_name,
@@ -57,7 +57,7 @@ export class HeaderAuthGuard implements CanActivate {
       realm_access: payload.realm_access,
     };
 
-    req.invitation = invitation;
+    req.user = user;
 
     return true;
   }

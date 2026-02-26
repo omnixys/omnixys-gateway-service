@@ -1,7 +1,7 @@
 {
-  "name": "omnixys-invitation-service",
+  "name": "omnixys-gateway-service",
   "version": "1.0.0",
-  "description": "Omnixys Invitation Service",
+  "description": "Omnixys Gateway Service",
   "author": {
     "name": "Caleb Gyamfi",
     "email": "caleb@omnixys.com",
@@ -9,10 +9,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/omnixys/omnixys-invitation-service.git"
+    "url": "https://github.com/omnixys/omnixys-gateway-service.git"
   },
   "bugs": {
-    "url": "https://github.com/omnixys/omnixys-invitation-service/issues"
+    "url": "https://github.com/omnixys/omnixys-gateway-service/issues"
   },
   "homepage": "https://omnixys.com",
   "license": "GPL-3.0-or-later",
@@ -41,10 +41,10 @@
     "test:e2e": "NODE_OPTIONS='--experimental-vm-modules' jest --config ./__tests__/e2e/jest-e2e.json --passWithNoTests",
     "typedoc": "typedoc",
     "depcheck": "depcheck",
-    "test:login": "pnpm test -- __tests__/e2e/invitation/invitation.login.e2e-spec.ts",
-    "test:signup": "pnpm test -- __tests__/e2e/invitation/invitation.signup.e2e-spec.ts",
-    "test:invitation": "pnpm test -- __tests__/e2e/invitation/invitation.invitation.e2e-spec.ts",
-    "test:admin": "pnpm test -- __tests__/e2e/invitation/invitation.admin.e2e-spec.ts",
+    "test:login": "pnpm test -- __tests__/e2e/gateway/gateway.login.e2e-spec.ts",
+    "test:signup": "pnpm test -- __tests__/e2e/gateway/gateway.signup.e2e-spec.ts",
+    "test:gateway": "pnpm test -- __tests__/e2e/gateway/gateway.gateway.e2e-spec.ts",
+    "test:admin": "pnpm test -- __tests__/e2e/gateway/gateway.admin.e2e-spec.ts",
     "prepare": "husky",
     "prisma:gen": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
@@ -86,11 +86,6 @@
     "@opentelemetry/resources": "^2.2.0",
     "@opentelemetry/sdk-node": "^0.208.0",
     "@prisma/client": "^6.19.0",
-    "@semantic-release/changelog": "^6.0.3",
-    "@semantic-release/commit-analyzer": "^13.0.1",
-    "@semantic-release/git": "^10.0.1",
-    "@semantic-release/github": "^12.0.6",
-    "@semantic-release/release-notes-generator": "^14.1.0",
     "@valkey/client": "^1.0.0",
     "cfonts": "^3.3.1",
     "chalk": "^5.6.2",
@@ -116,7 +111,12 @@
     "@nestjs/cli": "^11.0.0",
     "@nestjs/schematics": "^11.0.0",
     "@nestjs/testing": "^11.0.1",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/commit-analyzer": "^13.0.1",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^12.0.6",
     "@semantic-release/npm": "^13.1.4",
+    "@semantic-release/release-notes-generator": "^14.1.0",
     "@swc/cli": "^0.6.0",
     "@swc/core": "^1.10.7",
     "@tsconfig/node23": "^23.0.3",

@@ -16,7 +16,7 @@
  */
 
 // kafka-envelope.type.ts
-// ✅ Typisierte Invitation-Hülle für Kafka-Nachrichten zur Standardisierung von Payloads
+// ✅ Typisierte Event-Hülle für Kafka-Nachrichten zur Standardisierung von Payloads
 
 /**
  * KafkaEnvelope
@@ -32,12 +32,12 @@ export interface KafkaEnvelope<
   >,
 > {
   /**
-   * Invitation-Name (z. B. "acceptRsvp", "deleteUser")
+   * Event-Name (z. B. "acceptRsvp", "deleteUser")
    */
-  invitation: string;
+  event: string;
 
   /**
-   * Ursprungs-Service (z. B. "invitation-service")
+   * Ursprungs-Service (z. B. "gateway-service")
    */
   service: string;
 

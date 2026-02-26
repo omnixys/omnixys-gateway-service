@@ -15,8 +15,8 @@
 
 # name: ❓ User Service Question or Support Request
 # description: Ask a question or request help with setup, deployment, or usage of the User Service.
-labels: ["question", "user"]
-title: "[User Question] "
+labels: ['question', 'user']
+title: '[User Question] '
 # category: "❓ Questions & Support"
 
 body:
@@ -35,7 +35,7 @@ body:
         Examples:
         - How do I configure Keycloak for multi-tenant login?
         - Why does JWT refresh fail when Redis cache is enabled?
-        - How can I debug Kafka invitation propagation between services?
+        - How can I debug Kafka gateway propagation between services?
     validations:
       required: true
 

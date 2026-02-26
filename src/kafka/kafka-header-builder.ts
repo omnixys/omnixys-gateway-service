@@ -20,9 +20,9 @@ import { randomUUID } from 'crypto';
 
 export const KAFKA_HEADER_KEYS = {
   TRACE_ID: 'x-trace-id',
-  EVENT_NAME: 'x-invitation-name',
-  EVENT_TYPE: 'x-invitation-type',
-  EVENT_VERSION: 'x-invitation-version',
+  EVENT_NAME: 'x-event-name',
+  EVENT_TYPE: 'x-event-type',
+  EVENT_VERSION: 'x-event-version',
   SERVICE: 'x-service',
   B3_TRACE_ID: 'x-b3-traceid',
   B3_SAMPLED: 'x-b3-sampled',
@@ -43,7 +43,7 @@ export function buildKafkaHeaders(
 export type StandardKafkaHeaders = Record<string, string>;
 
 /**
- * Erzeugt standardisierte Kafka-Header für Invitation-Messages.
+ * Erzeugt standardisierte Kafka-Header für event-Messages.
  */
 export class KafkaHeaderBuilder {
   static buildStandardHeaders(

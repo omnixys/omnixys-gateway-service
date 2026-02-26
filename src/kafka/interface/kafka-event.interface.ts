@@ -5,11 +5,11 @@
  * For full license text, see <https://www.gnu.org/licenses/>.
  */
 
-// kafka-invitation.interface.ts
-// ✅ Schnittstellen für alle Kafka-Invitation-Handler-Klassen
+// kafka-event.interface.ts
+// ✅ Schnittstellen für alle Kafka-Event-Handler-Klassen
 
 /**
- * Kontextinformationen, die Kafka beim Invitation mitliefert.
+ * Kontextinformationen, die Kafka beim Event mitliefert.
  */
 export interface KafkaEventContext {
   topic: string;
@@ -26,7 +26,7 @@ export interface KafkaEventContext {
 export interface KafkaEventHandler {
   /**
    * Wird beim Empfang eines Events aufgerufen.
-   * @param topic Kafka-Topic, von dem das Invitation stammt
+   * @param topic Kafka-Topic, von dem das Event stammt
    * @param data  Deserialisierte Nutzlast
    * @param context  Kafka-Metadaten (Header, Partition usw.)
    */

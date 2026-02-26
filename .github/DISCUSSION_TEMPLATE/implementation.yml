@@ -15,8 +15,8 @@
 
 # name: 🧪 Implementation or Architecture Discussion
 # description: Discuss technical design, architecture, or integration details for the User Service.
-labels: ["🧪 Implementation", "user"]
-title: "[User Implementation] "
+labels: ['🧪 Implementation', 'user']
+title: '[User Implementation] '
 # category: "🧪 Implementation Details"
 
 body:
@@ -27,7 +27,7 @@ body:
         Use this template to discuss technical topics such as:
         - Keycloak realm synchronization
         - Redis session clustering
-        - Kafka invitation design
+        - Kafka gateway design
         - GraphQL schema structure or AuthZ strategy
 
   - type: textarea
@@ -68,6 +68,6 @@ body:
       label: References (optional)
       placeholder: |
         Link to related issues, PRs, or documentation.
-        Example: Issue #42 – Keycloak invitation stream optimization
+        Example: Issue #42 – Keycloak gateway stream optimization
     validations:
       required: false

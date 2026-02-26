@@ -60,7 +60,7 @@
       {
         "outputDirectory": "__tests__/reports/e2e/junit",
         "outputName": "junit-results.xml",
-        "suiteName": "E2E Invitation Tests"
+        "suiteName": "E2E Gateway Tests"
       }
     ]
   ]

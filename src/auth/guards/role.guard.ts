@@ -33,16 +33,16 @@ export class RoleGuard implements CanActivate {
     const gqlCtx = GqlExecutionContext.create(context);
     const req: FastifyRequest = gqlCtx.getContext().req;
 
-    const invitation = (req as any).invitation;
-    if (!invitation) {
-      throw new ForbiddenException('Invitation not authenticated');
+    const user = (req as any).user;
+    if (!user) {
+      throw new ForbiddenException('user not authenticated');
     }
 
-    const roles = invitation.roles ?? [];
+    const roles = user.roles ?? [];
     const allowed = requiredRoles.some((r) => roles.includes(r));
 
     console.log({
-      invitation,
+      user,
       roles,
       requiredRoles,
     });

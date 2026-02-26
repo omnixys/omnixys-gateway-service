@@ -13,7 +13,7 @@
 #
 # For more information, visit <https://www.gnu.org/licenses/>.
 # ---------------------------------------------------------------------------------------
-# Dockerfile – Omnixys Invitation Service
+# Dockerfile – Omnixys Gateway Service
 # Multi-stage build optimized for security, reproducibility, and minimal runtime size.
 # ---------------------------------------------------------------------------------------
 # syntax=docker/dockerfile:1.14.0
@@ -53,7 +53,7 @@ RUN pnpm install --prod --frozen-lockfile --ignore-scripts
 # ---------------------------------------------------------------------------------------
 # Stage 3: Final runtime image
 # - Copies only compiled code and production node_modules.
-# - Runs the app as a non-root invitation for security.
+# - Runs the app as a non-root gateway for security.
 # ---------------------------------------------------------------------------------------
 FROM node:${NODE_VERSION}-bookworm-slim AS final
 
@@ -97,7 +97,7 @@ RUN apt-get update && \
 # ----- Enable pnpm (runtime) -----
 RUN corepack enable pnpm
 
-# ----- Switch to non-root invitation -----
+# ----- Switch to non-root gateway -----
 USER node
 
 # ----- Copy built artifacts and dependencies -----

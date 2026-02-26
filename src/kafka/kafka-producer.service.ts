@@ -69,7 +69,7 @@ export class KafkaProducerService implements OnModuleInit, OnModuleDestroy {
 
     const headers = KafkaHeaderBuilder.buildStandardHeaders(
       topic,
-      message.invitation,
+      message.event,
       trace,
       message.version,
       message.service,
@@ -112,7 +112,7 @@ export class KafkaProducerService implements OnModuleInit, OnModuleDestroy {
     trace?: TraceContext,
   ): Promise<void> {
     const envelope: KafkaEnvelope<typeof payload> = {
-      invitation: 'notifyUser',
+      event: 'notifyUser',
       service,
       version: 'v1',
       trace,

@@ -3,7 +3,7 @@ import 'fastify';
 
 declare module 'fastify' {
   interface FastifyRequest {
-    invitation?: {
+    user?: {
       id: string; // added
       username: string; // added
       email: string; // added

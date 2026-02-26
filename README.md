@@ -1,4 +1,4 @@
-<h1 align="center" style="color:#6A4BBC; font-weight:600;">🛡️ Omnixys Invitation Service – Identity & Security Module</h1>
+<h1 align="center" style="color:#6A4BBC; font-weight:600;">🛡️ Omnixys Gateway Service – Identity & Security Module</h1>
 
 <p align="center">
   <picture>
@@ -17,7 +17,7 @@
 <h2 align="center" style="color:#6A4BBC; font-weight:600;">📊 Repository Status</h2>
 
 <p align="center" style="font-size:14px; color:#312E81;">
-  Continuous Integration, Deployment & Security Overview for the <strong>Omnixys Invitation Service</strong>.
+  Continuous Integration, Deployment & Security Overview for the <strong>Omnixys Gateway Service</strong>.
 </p>
 
 <!-- CI/CD Status Table -->
@@ -27,15 +27,15 @@
   </tr>
   <tr>
     <td align="center" style="padding:4px;">
-      <img src="https://github.com/omnixys/omnixys-invitation-service/actions/workflows/ci.yaml/badge.svg" alt="Build Status" />
+      <img src="https://github.com/omnixys/omnixys-gateway-service/actions/workflows/ci.yaml/badge.svg" alt="Build Status" />
     </td>
     <td align="center" style="padding:4px;">
-      <img src="https://github.com/omnixys/omnixys-invitation-service/actions/workflows/test.yaml/badge.svg" alt="E2E Tests" />
+      <img src="https://github.com/omnixys/omnixys-gateway-service/actions/workflows/test.yaml/badge.svg" alt="E2E Tests" />
     </td>
   </tr>
   <tr>
     <td align="center" style="padding:4px;">
-      <img src="https://github.com/omnixys/omnixys-invitation-service/actions/workflows/security-scan.yaml/badge.svg" alt="Security Audit" />
+      <img src="https://github.com/omnixys/omnixys-gateway-service/actions/workflows/security-scan.yaml/badge.svg" alt="Security Audit" />
     </td>
     <td align="center" style="padding:4px;">
       <a href="./.extras/badges/coverage.svg">
@@ -46,18 +46,18 @@
 
    <tr>
     <td align="center" style="padding:4px;">
-      <img src="https://github.com/omnixys/omnixys-invitation-service/actions/workflows/release.yaml/badge.svg" alt="Security Audit" />
+      <img src="https://github.com/omnixys/omnixys-gateway-service/actions/workflows/release.yaml/badge.svg" alt="Security Audit" />
     </td>
    <td align="center" style="padding:4px;">
-      <img src="https://github.com/omnixys/omnixys-invitation-service/actions/workflows/vulnerability-report.yaml/badge.svg" alt="E2E Tests" />
+      <img src="https://github.com/omnixys/omnixys-gateway-service/actions/workflows/vulnerability-report.yaml/badge.svg" alt="E2E Tests" />
     </td>
   </tr>
     <tr>
       <td align="center" style="padding:4px;">
-      <img src="https://github.com/omnixys/omnixys-invitation-service/actions/workflows/docker-build.yaml/badge.svg" alt="Build Status" />
+      <img src="https://github.com/omnixys/omnixys-gateway-service/actions/workflows/docker-build.yaml/badge.svg" alt="Build Status" />
     </td>
      <td align="center" style="padding:4px;">
-      <img src="https://github.com/omnixys/omnixys-invitation-service/actions/workflows/deploy.yaml/badge.svg" alt="Build Status" />
+      <img src="https://github.com/omnixys/omnixys-gateway-service/actions/workflows/deploy.yaml/badge.svg" alt="Build Status" />
     </td>
     </tr>
 </table>
@@ -69,26 +69,26 @@
   </tr>
   <tr>
     <td align="center" style="padding:4px;">
-      <img src="https://img.shields.io/github/last-commit/omnixys/omnixys-invitation-service?label=Last%20Commit&style=flat-square&color=6A4BBC" alt="Last Commit" />
+      <img src="https://img.shields.io/github/last-commit/omnixys/omnixys-gateway-service?label=Last%20Commit&style=flat-square&color=6A4BBC" alt="Last Commit" />
     </td>
     <td align="center" style="padding:4px;">
-      <img src="https://img.shields.io/github/commit-activity/m/omnixys/omnixys-invitation-service?style=flat-square&color=6A4BBC" alt="Commit Activity" />
-    </td>
-  </tr>
-  <tr>
-    <td align="center" style="padding:4px;">
-      <img src="https://img.shields.io/github/languages/top/omnixys/omnixys-invitation-service?style=flat-square&color=4E3792" alt="Primary Language" />
-    </td>
-    <td align="center" style="padding:4px;">
-      <img src="https://img.shields.io/github/languages/code-size/omnixys/omnixys-invitation-service?style=flat-square&color=4E3792" alt="Code Size" />
+      <img src="https://img.shields.io/github/commit-activity/m/omnixys/omnixys-gateway-service?style=flat-square&color=6A4BBC" alt="Commit Activity" />
     </td>
   </tr>
   <tr>
     <td align="center" style="padding:4px;">
-      <img src="https://img.shields.io/github/issues/omnixys/omnixys-invitation-service?style=flat-square&color=A3E635" alt="Issues" />
+      <img src="https://img.shields.io/github/languages/top/omnixys/omnixys-gateway-service?style=flat-square&color=4E3792" alt="Primary Language" />
     </td>
     <td align="center" style="padding:4px;">
-      <img src="https://img.shields.io/github/issues-pr/omnixys/omnixys-invitation-service?style=flat-square&color=A3E635" alt="Pull Requests" />
+      <img src="https://img.shields.io/github/languages/code-size/omnixys/omnixys-gateway-service?style=flat-square&color=4E3792" alt="Code Size" />
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="padding:4px;">
+      <img src="https://img.shields.io/github/issues/omnixys/omnixys-gateway-service?style=flat-square&color=A3E635" alt="Issues" />
+    </td>
+    <td align="center" style="padding:4px;">
+      <img src="https://img.shields.io/github/issues-pr/omnixys/omnixys-gateway-service?style=flat-square&color=A3E635" alt="Pull Requests" />
     </td>
   </tr>
   <tr>
@@ -175,12 +175,12 @@
 <h3 id="overview" align="center" style="color:#6A4BBC; font-weight:600;">🔎 Overview</h3>
 
 <p align="center" style="font-size:14px; color:#312E81;">
-  Overview of the purpose and core functionality of the <strong>Omnixys Invitation Service</strong>.
+  Overview of the purpose and core functionality of the <strong>Omnixys Gateway Service</strong>.
 </p>
 
 <p>
-  The <strong>Omnixys Invitation Service</strong> is a secure and modular identity management microservice
-  that provides <strong>invitation</strong>, <strong>authorization</strong>, and
+  The <strong>Omnixys Gateway Service</strong> is a secure and modular identity management microservice
+  that provides <strong>gateway</strong>, <strong>authorization</strong>, and
   <strong>token lifecycle control</strong> across the Omnixys ecosystem.
 </p>
 
@@ -191,9 +191,9 @@
 </p>
 
 <ul>
-  <li>Centralized invitation identity and access control (AuthN & AuthZ)</li>
+  <li>Centralized gateway identity and access control (AuthN & AuthZ)</li>
   <li>Distributed token validation between microservices</li>
-  <li>Federated invitation through standardized JWT exchange</li>
+  <li>Federated gateway through standardized JWT exchange</li>
   <li>Real-time propagation of identity events via Kafka topics</li>
 </ul>
 
@@ -220,9 +220,9 @@
 </p>
 
 <ul>
-  <li>🔑 <strong>Keycloak-based invitation management</strong> (OAuth 2.0 / OpenID Connect)</li>
+  <li>🔑 <strong>Keycloak-based gateway management</strong> (OAuth 2.0 / OpenID Connect)</li>
   <li>🧩 <strong>Apollo GraphQL Federation v4</strong> integration for distributed schemas</li>
-  <li>⚙️ <strong>Kafka Invitation Dispatcher</strong> for identity-driven invitation propagation</li>
+  <li>⚙️ <strong>Kafka Gateway Dispatcher</strong> for identity-driven gateway propagation</li>
   <li>💾 <strong>Redis-backed caching &amp; token store</strong> for ultra-fast access</li>
   <li>📦 <strong>NestJS modular design</strong> with scalable dependency injection</li>
   <li>🧠 <strong>Type-safe core</strong> powered by TypeScript 5 +</li>
@@ -260,7 +260,7 @@
   <tbody>
     <tr><td>🧠 Runtime</td><td><strong>Node.js 22+</strong></td></tr>
     <tr><td>⚙️ Framework</td><td><strong>NestJS 11</strong></td></tr>
-    <tr><td>🔐 Invitation</td><td><strong>Keycloak 25+</strong></td></tr>
+    <tr><td>🔐 Gateway</td><td><strong>Keycloak 25+</strong></td></tr>
     <tr><td>🔄 Message Broker</td><td><strong>KafkaJS</strong></td></tr>
     <tr><td>💾 Cache / Session</td><td><strong>Redis</strong></td></tr>
     <tr><td>🧩 API Layer</td><td><strong>Apollo Federation (GraphQL)</strong></td></tr>
@@ -290,10 +290,10 @@ A clear and modular repository layout, following the **Omnixys Microservice Arch
 Each directory aligns with CI/CD, observability, and security conventions defined in the Omnixys Branding & Engineering Kit.
 
 ```text
-invitation/
+gateway/
 ├── .github/                                        # GitHub configuration and automation
 │   ├── workflows/                                  # CI/CD & security pipelines
-│   │   ├── test.yml                                # 🧪 E2E Invitation Tests (Keycloak, Redis, Kafka, Postgres)
+│   │   ├── test.yml                                # 🧪 E2E Gateway Tests (Keycloak, Redis, Kafka, Postgres)
 │   │   ├── ci-cd.yml                               # Build & deploy pipeline
 │   │   ├── codeql.yml                              # CodeQL security scanning
 │   │   ├── security.yml                            # Dependency vulnerability checks
@@ -319,11 +319,11 @@ invitation/
 │
 ├── __tests__/                                       # Automated test suite
 │   ├── e2e/                                         # End-to-End test layer
-│   │   ├── invitation/
-│   │   │   ├── invitation.login.e2e-spec.ts     # Login / Refresh / Logout
-│   │   │   ├── invitation.signup.e2e-spec.ts    # Invitation & Admin registration (SignUp flow)
-│   │   │   ├── invitation.invitation.e2e-spec.ts      # Me / Update profile / Change password / Send mail
-│   │   │   └── invitation.admin.e2e-spec.ts     # Admin operations (roles, update, delete)
+│   │   ├── gateway/
+│   │   │   ├── gateway.login.e2e-spec.ts     # Login / Refresh / Logout
+│   │   │   ├── gateway.signup.e2e-spec.ts    # Gateway & Admin registration (SignUp flow)
+│   │   │   ├── gateway.gateway.e2e-spec.ts      # Me / Update profile / Change password / Send mail
+│   │   │   └── gateway.admin.e2e-spec.ts     # Admin operations (roles, update, delete)
 │   │   ├── graphql-client.ts                        # Request helper (cookies, retries)
 │   │   ├── setup-e2e.ts                             # Bootstraps Nest test app with real Keycloak
 │   │   ├── jest-e2e.json                            # Jest configuration for E2E tests
@@ -335,9 +335,9 @@ invitation/
 │
 ├── src/                                             # NestJS source code
 │   ├── admin/                                       # Admin module (shutdown, restart, maintenance)
-│   ├── invitation/                              # Invitation & Keycloak integration layer
+│   ├── gateway/                              # Gateway & Keycloak integration layer
 │   ├── config/                                      # Environment & system configuration
-│   ├── handlers/                                    # Kafka invitation & domain logic handlers
+│   ├── handlers/                                    # Kafka gateway & domain logic handlers
 │   ├── health/                                      # Liveness & readiness probes
 │   ├── logger/                                      # Pino logger setup & response interceptors
 │   ├── messaging/                                   # KafkaJS producer / consumer abstraction
@@ -388,7 +388,7 @@ invitation/
 <h3 id="environment-configuration" align="center" style="color:#6A4BBC; font-weight:600;">⚙️ Environment Configuration</h3>
 
 <p align="center" style="font-size:14px; color:#312E81;">
-  The <strong>Omnixys Invitation Service</strong> relies on a structured set of environment variables to define its
+  The <strong>Omnixys Gateway Service</strong> relies on a structured set of environment variables to define its
   <strong>runtime behavior</strong>, <strong>security integration</strong>, and <strong>observability parameters</strong>.
 </p>
 
@@ -425,7 +425,7 @@ to maintain consistency across all microservices.
 <h4 align="center" style="color:#6A4BBC; font-weight:600;">🧩 Core Application Settings</h4>
 
 <p align="center" style="font-size:14px; color:#312E81;">
-  Environment variables that define the <strong>runtime configuration</strong> and <strong>operational behavior</strong> of the Invitation Service.
+  Environment variables that define the <strong>runtime configuration</strong> and <strong>operational behavior</strong> of the Gateway Service.
 </p>
 
 <table align="center" style="border-collapse:collapse; font-size:14px;">
@@ -433,7 +433,7 @@ to maintain consistency across all microservices.
     <tr><th style="padding:6px 12px;">Variable</th><th style="padding:6px 12px;">Description</th><th style="padding:6px 12px;">Default</th></tr>
   </thead>
   <tbody>
-    <tr><td><code>SERVICE</code></td><td>Logical name of the microservice</td><td><code>invitation</code></td></tr>
+    <tr><td><code>SERVICE</code></td><td>Logical name of the microservice</td><td><code>gateway</code></td></tr>
     <tr><td><code>PORT</code></td><td>Port on which the NestJS service listens</td><td><code>7501</code></td></tr>
     <tr><td><code>GRAPHQL_PLAYGROUND</code></td><td>Enables GraphQL Playground for development</td><td><code>true</code></td></tr>
     <tr><td><code>KEYS_PATH</code></td><td>Relative path to SSL/TLS key and certificate files</td><td><code>../../keys</code></td></tr>
@@ -465,8 +465,8 @@ to maintain consistency across all microservices.
   <tbody>
     <tr><td><code>OMNIXYS_ADMIN_USERNAME</code></td><td>Administrator username</td><td><code>admin</code></td></tr>
     <tr><td><code>OMNIXYS_ADMIN_PASSWORD</code></td><td>Administrator password</td><td><code>change-me</code></td></tr>
-    <tr><td><code>OMNIXYS_USER_USERNAME</code></td><td>Standard invitation username</td><td><code>invitation</code></td></tr>
-    <tr><td><code>OMNIXYS_USER_PASSWORD</code></td><td>Standard invitation password</td><td><code>change-me</code></td></tr>
+    <tr><td><code>OMNIXYS_USER_USERNAME</code></td><td>Standard gateway username</td><td><code>gateway</code></td></tr>
+    <tr><td><code>OMNIXYS_USER_PASSWORD</code></td><td>Standard gateway password</td><td><code>change-me</code></td></tr>
     <tr><td><code>OMNIXYS_EMAIL_DOMAIN</code></td><td>Default email domain for test users</td><td><code>omnixys.com</code></td></tr>
   </tbody>
 </table>
@@ -510,7 +510,7 @@ to maintain consistency across all microservices.
 <h4 align="center" style="color:#6A4BBC; font-weight:600;">🔐 Keycloak Configuration</h4>
 
 <p align="center" style="font-size:14px; color:#312E81;">
-  Connection parameters for the integrated <strong>Keycloak Identity Provider</strong> – required for invitation, authorization, and token issuance.
+  Connection parameters for the integrated <strong>Keycloak Identity Provider</strong> – required for gateway, authorization, and token issuance.
 </p>
 
 <table align="center" style="border-collapse:collapse; font-size:14px;">
@@ -616,13 +616,13 @@ to maintain consistency across all microservices.
 
 <h3 id="setup--installation" align="center" style="color:#6A4BBC; font-weight:600;">🚀 Setup & Installation</h3>
 
-Follow these steps to set up the <strong>Omnixys Invitation Service</strong> locally or in a containerized environment.
+Follow these steps to set up the <strong>Omnixys Gateway Service</strong> locally or in a containerized environment.
 
 <h4 align="center" style="color:#6A4BBC; font-weight:600;">🧩 Local Development Setup</h4>
 
 <pre style="background-color:#F8F7FF; color:#1E1B4B; border-radius:8px; padding:10px; font-size:13px; border:1px solid #E0DEF0;"><code># 1️⃣ Clone the repository
-git clone https://github.com/omnixys/omnixys-invitation-service.git
-cd omnixys-invitation-service
+git clone https://github.com/omnixys/omnixys-gateway-service.git
+cd omnixys-gateway-service
 
 # 2️⃣ Copy environment template
 cp .env.example .env
@@ -663,7 +663,7 @@ docker buildx bake -f docker-bake.hcl --push
 <pre style="background-color:#F8F7FF; color:#1E1B4B; border-radius:8px; padding:10px; font-size:13px; border:1px solid #E0DEF0;"><code>/opt/bitnami/keycloak/bin/kcadm.sh config credentials \
   --server http://localhost:18080/auth \
   --realm master \
-  --invitation admin \
+  --gateway admin \
   --password admin \
   --config /tmp/kcadm.config</code></pre>
 
@@ -713,12 +713,12 @@ Password: admin</code></pre>
 
 <p style="font-size:14px; color:#312E81;">
   ✅ Optional: You may also create additional roles (e.g., <code>USER</code>, <code>MANAGER</code>, <code>SECURITY</code>) — 
-  these are the roles that the Invitation Service uses for access control.
+  these are the roles that the Gateway Service uses for access control.
 </p>
 
-<h5 style="color:#6A4BBC; margin-bottom:4px;">4️⃣ Create an Admin Invitation</h5>
+<h5 style="color:#6A4BBC; margin-bottom:4px;">4️⃣ Create an Admin Gateway</h5>
 <p style="font-size:14px; color:#312E81;">
-  Go to <strong>Users</strong> → <strong>Add Invitation</strong> and fill in the following fields:
+  Go to <strong>Users</strong> → <strong>Add Gateway</strong> and fill in the following fields:
 </p>
 
 <ul style="color:#312E81; font-size:14px;">
@@ -727,7 +727,7 @@ Password: admin</code></pre>
   <li><strong>First Name / Last Name:</strong> any descriptive values</li>
 </ul>
 
-<h5 style="color:#6A4BBC; margin-bottom:4px;">5️⃣ Set Invitation Credentials</h5>
+<h5 style="color:#6A4BBC; margin-bottom:4px;">5️⃣ Set Gateway Credentials</h5>
 <p style="font-size:14px; color:#312E81;">
   Under the <strong>Credentials</strong> tab:
 </p>
@@ -738,7 +738,7 @@ Password: admin</code></pre>
   <li>Click <strong>Set Password</strong></li>
 </ul>
 
-<h5 style="color:#6A4BBC; margin-bottom:4px;">6️⃣ Assign Roles to the Admin Invitation</h5>
+<h5 style="color:#6A4BBC; margin-bottom:4px;">6️⃣ Assign Roles to the Admin Gateway</h5>
 <p style="font-size:14px; color:#312E81;">
   Open the <strong>Role Mappings</strong> tab:
 </p>
@@ -750,14 +750,14 @@ Password: admin</code></pre>
 
 <h5 style="color:#6A4BBC; margin-bottom:4px;">7️⃣ Save & Verify</h5>
 <p style="font-size:14px; color:#312E81;">
-  Ensure your invitation now appears with both roles assigned.<br/>
-  This admin account will be used by the <strong>Omnixys Invitation Service</strong> during initialization and token management.
+  Ensure your gateway now appears with both roles assigned.<br/>
+  This admin account will be used by the <strong>Omnixys Gateway Service</strong> during initialization and token management.
 </p>
 
 ---
 
 <p style="font-size:14px; color:#312E81;">
-  ✅ After completing these steps, Keycloak is fully prepared for integration with the Invitation Service, Camunda, and other Omnixys modules.
+  ✅ After completing these steps, Keycloak is fully prepared for integration with the Gateway Service, Camunda, and other Omnixys modules.
 </p>
 
 ---
@@ -776,14 +776,14 @@ Password: admin</code></pre>
 
 <h3 id="running-the-server" align="center" style="color:#6A4BBC; font-weight:600;">🏃 Running the Server</h3>
 
-Run the <strong>Omnixys Invitation Service</strong> in either development or production mode.
+Run the <strong>Omnixys Gateway Service</strong> in either development or production mode.
 
 <h4 align="center" style="color:#6A4BBC; font-weight:600;">⚙️ Start the Core Infrastructure</h4>
 
 <p style="font-size:14px; color:#312E81;">
   Before starting the NestJS service itself, the required <strong>Omnixys core infrastructure</strong>
   (PostgreSQL, Keycloak, Camunda, Kafka, Tempo, and Prometheus) must be running.<br/>
-  These components provide the essential backend services for invitation, orchestration, monitoring, and invitation streaming.
+  These components provide the essential backend services for gateway, orchestration, monitoring, and gateway streaming.
 </p>
 
 <pre style="background-color:#F8F7FF; color:#1E1B4B; border-radius:8px; padding:10px; font-size:13px; border:1px solid #E0DEF0;"><code># Navigate to the Docker environment folder
@@ -852,7 +852,7 @@ docker compose down -v
 <h4 align="center" style="color:#6A4BBC; font-weight:600;">⚙️ Kafka Host Configuration</h4>
 
 <p style="font-size:14px; color:#312E81;">
-  The <strong>Kafka advertised hostname</strong> depends on where the Invitation Service is running.<br/>
+  The <strong>Kafka advertised hostname</strong> depends on where the Gateway Service is running.<br/>
   Update the variable in <code>.extras/docker/kafka/.env</code> accordingly:
 </p>
 
@@ -895,7 +895,7 @@ docker compose down -v
 
 <h3 id="graphql-example" align="center" style="color:#6A4BBC; font-weight:600;">🧠 GraphQL Example</h3>
 
-Example GraphQL mutation for invitation using the **Omnixys Invitation Service**:
+Example GraphQL mutation for gateway using the **Omnixys Gateway Service**:
 
 ```graphql
 mutation Login {
@@ -927,7 +927,7 @@ mutation Login {
 <h3 id="troubleshooting" align="center" style="color:#6A4BBC; font-weight:600;">🛠️ Troubleshooting</h3>
 
 <p align="center">
-  Common issues and solutions when running or developing the <strong>Omnixys Invitation Service</strong>.
+  Common issues and solutions when running or developing the <strong>Omnixys Gateway Service</strong>.
 </p>
 
 <table align="center" style="border-collapse:collapse; font-size:14px;">
@@ -974,7 +974,7 @@ mutation Login {
 <h3 id="development-commands" align="center" style="color:#6A4BBC; font-weight:600;">🧰 Development Commands</h3>
 
 <p align="center" style="font-size:14px; color:#312E81;">
-  Useful commands for development, testing, and maintaining code quality within the <strong>Omnixys Invitation Service</strong>.
+  Useful commands for development, testing, and maintaining code quality within the <strong>Omnixys Gateway Service</strong>.
 </p>
 
 ```bash
@@ -1005,7 +1005,7 @@ pnpm run test
 <h3 id="community--feedback" align="center" style="color:#6A4BBC; font-weight:600;">💬 Community & Feedback</h3>
 
 <p align="center">
-  Join the <strong>Omnixys Developer Community</strong> to share ideas, collaborate, and get support for the <strong>Invitation Service</strong>.
+  Join the <strong>Omnixys Developer Community</strong> to share ideas, collaborate, and get support for the <strong>Gateway Service</strong>.
 </p>
 
 <table align="center" style="border-collapse:collapse; font-size:14px;">
@@ -1016,13 +1016,13 @@ pnpm run test
     </tr>
   </thead>
   <tbody>
-    <tr><td>💡 <strong>Propose a Feature</strong></td><td><a href="https://github.com/omnixys/omnixys-invitation-service/discussions/new?category=ideas--suggestions" style="color:#6A4BBC;">Start a Feature Discussion</a></td></tr>
-    <tr><td>🧪 <strong>Discuss Implementation Details</strong></td><td><a href="https://github.com/omnixys/omnixys-invitation-service/discussions/new?category=implementation-details" style="color:#6A4BBC;">Join an Architecture Thread</a></td></tr>
-    <tr><td>❓ <strong>Ask a Question or Get Support</strong></td><td><a href="https://github.com/omnixys/omnixys-invitation-service/discussions/new?category=questions--support" style="color:#6A4BBC;">Open a Question</a></td></tr>
-    <tr><td>🧵 <strong>General Feedback / Meta</strong></td><td><a href="https://github.com/omnixys/omnixys-invitation-service/discussions/new?category=general" style="color:#6A4BBC;">Start a General Discussion</a></td></tr>
-    <tr><td>🐛 <strong>Report a Bug</strong></td><td><a href="https://github.com/omnixys/omnixys-invitation-service/issues/new?template=auth_bug_report.yml" style="color:#6A4BBC;">Create a Bug Report</a></td></tr>
-    <tr><td>🔒 <strong>Report a Security Issue</strong></td><td><a href="https://github.com/omnixys/omnixys-invitation-service/security/policy" style="color:#6A4BBC;">Submit Security Report</a></td></tr>
-    <tr><td>🆘 <strong>Need Help with Setup?</strong></td><td><a href="https://github.com/omnixys/omnixys-invitation-service/issues/new?template=auth_support_request.yml" style="color:#6A4BBC;">Use the Support Template</a></td></tr>
+    <tr><td>💡 <strong>Propose a Feature</strong></td><td><a href="https://github.com/omnixys/omnixys-gateway-service/discussions/new?category=ideas--suggestions" style="color:#6A4BBC;">Start a Feature Discussion</a></td></tr>
+    <tr><td>🧪 <strong>Discuss Implementation Details</strong></td><td><a href="https://github.com/omnixys/omnixys-gateway-service/discussions/new?category=implementation-details" style="color:#6A4BBC;">Join an Architecture Thread</a></td></tr>
+    <tr><td>❓ <strong>Ask a Question or Get Support</strong></td><td><a href="https://github.com/omnixys/omnixys-gateway-service/discussions/new?category=questions--support" style="color:#6A4BBC;">Open a Question</a></td></tr>
+    <tr><td>🧵 <strong>General Feedback / Meta</strong></td><td><a href="https://github.com/omnixys/omnixys-gateway-service/discussions/new?category=general" style="color:#6A4BBC;">Start a General Discussion</a></td></tr>
+    <tr><td>🐛 <strong>Report a Bug</strong></td><td><a href="https://github.com/omnixys/omnixys-gateway-service/issues/new?template=auth_bug_report.yml" style="color:#6A4BBC;">Create a Bug Report</a></td></tr>
+    <tr><td>🔒 <strong>Report a Security Issue</strong></td><td><a href="https://github.com/omnixys/omnixys-gateway-service/security/policy" style="color:#6A4BBC;">Submit Security Report</a></td></tr>
+    <tr><td>🆘 <strong>Need Help with Setup?</strong></td><td><a href="https://github.com/omnixys/omnixys-gateway-service/issues/new?template=auth_support_request.yml" style="color:#6A4BBC;">Use the Support Template</a></td></tr>
   </tbody>
 </table>
 
@@ -1073,7 +1073,7 @@ pnpm run test
 <h3 id="contributing" align="center" style="color:#6A4BBC; font-weight:600;">🤝 Contributing</h3>
 
 <p align="center" style="font-size:14px; color:#312E81;">
-  Follow these steps to contribute to the <strong>Omnixys Invitation Service</strong>:
+  Follow these steps to contribute to the <strong>Omnixys Gateway Service</strong>:
 </p>
 
 <ol>
@@ -1140,11 +1140,11 @@ pnpm run lint && git commit -m "feat: add feature"
 <h3 id="übersicht" align="center" style="color:#6A4BBC; font-weight:600;">🔎 Übersicht</h3>
 
 <p align="center" style="font-size:14px; color:#312E81;">
-  Überblick über den Zweck und die Kernfunktionen des <strong>Omnixys Invitation Service</strong>.
+  Überblick über den Zweck und die Kernfunktionen des <strong>Omnixys Gateway Service</strong>.
 </p>
 
 <p>
-  Der <strong>Omnixys Invitation Service</strong> ist ein sicherer und modularer Identitäts-Mikroservice,
+  Der <strong>Omnixys Gateway Service</strong> ist ein sicherer und modularer Identitäts-Mikroservice,
   der für <strong>Authentifizierung</strong>, <strong>Autorisierung</strong> und
   <strong>Token-Management</strong> im gesamten Omnixys-Ökosystem verantwortlich ist.
 </p>
@@ -1186,7 +1186,7 @@ pnpm run lint && git commit -m "feat: add feature"
 <ul>
   <li>🔑 <strong>Keycloak-basierte Authentifizierung</strong> (OAuth 2.0 / OpenID Connect)</li>
   <li>🧩 <strong>GraphQL Federation v4</strong> für verteilte Schemas und Integrationen</li>
-  <li>⚙️ <strong>Kafka Invitation Dispatcher</strong> zur Echtzeit-Übertragung von Identitätsereignissen</li>
+  <li>⚙️ <strong>Kafka Gateway Dispatcher</strong> zur Echtzeit-Übertragung von Identitätsereignissen</li>
   <li>💾 <strong>Redis Cache &amp; Token Store</strong> für schnelle Authentifizierungsvorgänge</li>
   <li>📦 <strong>Modularer Aufbau mit NestJS</strong> für klare Trennung von Logik und Infrastruktur</li>
   <li>🧠 <strong>TypeScript 5+</strong> für maximale Typensicherheit und Stabilität</li>
@@ -1217,14 +1217,14 @@ pnpm run lint && git commit -m "feat: add feature"
 </p>
 
 <p>
-  Der <strong>Omnixys Invitation Service</strong> basiert auf einer modernen, skalierbaren Architektur und setzt auf folgende Technologien:
+  Der <strong>Omnixys Gateway Service</strong> basiert auf einer modernen, skalierbaren Architektur und setzt auf folgende Technologien:
 </p>
 
 <ul>
   <li><strong>NestJS</strong> – Framework</li>
   <li><strong>Node.js 22+</strong> – Runtime</li>
   <li><strong>Keycloak 25+</strong> – Identity &amp; Access Management</li>
-  <li><strong>KafkaJS</strong> – Invitation Streaming</li>
+  <li><strong>KafkaJS</strong> – Gateway Streaming</li>
   <li><strong>Redis</strong> – Caching &amp; Session Store</li>
   <li><strong>Apollo Federation</strong> – GraphQL API Layer</li>
   <li><strong>Pino</strong> – Strukturiertes Logging</li>
@@ -1310,15 +1310,15 @@ pnpm run lint && git commit -m "feat: add feature"
 <h3 id="installation--setup" align="center" style="color:#6A4BBC; font-weight:600;">🚀 Installation &amp; Setup</h3>
 
 <p align="center" style="font-size:14px; color:#312E81;">
-  Folge diesen Schritten, um den <strong>Omnixys Invitation Service</strong> lokal oder in einer Container-Umgebung zu installieren.
+  Folge diesen Schritten, um den <strong>Omnixys Gateway Service</strong> lokal oder in einer Container-Umgebung zu installieren.
 </p>
 
 <h4 align="center" style="color:#6A4BBC; font-weight:600;">🧩 Lokale Entwicklungsumgebung</h4>
 
 ```bash
 # 1️⃣ Repository klonen
-git clone https://github.com/omnixys/omnixys-invitation-service.git
-cd omnixys-invitation-service
+git clone https://github.com/omnixys/omnixys-gateway-service.git
+cd omnixys-gateway-service
 
 # 2️⃣ Beispiel-Umgebungsdatei kopieren
 cp .env.example .env
@@ -1366,7 +1366,7 @@ docker buildx bake -f docker-bake.hcl --push
 <pre style="background-color:#F8F7FF; color:#1E1B4B; border-radius:8px; padding:10px; font-size:13px; border:1px solid #E0DEF0;"><code>/opt/bitnami/keycloak/bin/kcadm.sh config credentials \
   --server http://localhost:18080/auth \
   --realm master \
-  --invitation admin \
+  --gateway admin \
   --password admin \
   --config /tmp/kcadm.config</code></pre>
 
@@ -1415,12 +1415,12 @@ Passwort: admin</code></pre>
 
 <p style="font-size:14px; color:#312E81;">
   ✅ Optional: Weitere Rollen können erstellt werden (z.&nbsp;B. <code>USER</code>, <code>MANAGER</code>, <code>SECURITY</code>).  
-  Diese Rollen werden vom Invitation Service für die Zugriffskontrolle verwendet.
+  Diese Rollen werden vom Gateway Service für die Zugriffskontrolle verwendet.
 </p>
 
 <h5 style="color:#6A4BBC; margin-bottom:4px;">4️⃣ Administrator-Benutzer anlegen</h5>
 <p style="font-size:14px; color:#312E81;">
-  In der Seitenleiste <strong>Users</strong> öffnen → <strong>Add Invitation</strong> auswählen und ausfüllen:
+  In der Seitenleiste <strong>Users</strong> öffnen → <strong>Add Gateway</strong> auswählen und ausfüllen:
 </p>
 
 <ul style="color:#312E81; font-size:14px;">
@@ -1453,13 +1453,13 @@ Passwort: admin</code></pre>
 <h5 style="color:#6A4BBC; margin-bottom:4px;">7️⃣ Speichern &amp; prüfen</h5>
 <p style="font-size:14px; color:#312E81;">
   Vergewissere dich, dass der Benutzer beide Rollen besitzt.  
-  Dieses Admin-Konto wird vom <strong>Omnixys Invitation Service</strong> für Authentifizierung und Token-Verwaltung genutzt.
+  Dieses Admin-Konto wird vom <strong>Omnixys Gateway Service</strong> für Authentifizierung und Token-Verwaltung genutzt.
 </p>
 
 ---
 
 <p style="font-size:14px; color:#312E81;">
-  ✅ Nach Abschluss dieser Schritte ist Keycloak vollständig für die Integration mit dem Invitation Service, Camunda und anderen Omnixys-Modulen vorbereitet.
+  ✅ Nach Abschluss dieser Schritte ist Keycloak vollständig für die Integration mit dem Gateway Service, Camunda und anderen Omnixys-Modulen vorbereitet.
 </p>
 
 ---
@@ -1478,14 +1478,14 @@ Passwort: admin</code></pre>
 
 <h3 id="running-the-server" align="center" style="color:#6A4BBC; font-weight:600;">🏃 Server starten</h3>
 
-Starte den <strong>Omnixys Invitation Service</strong> wahlweise im Entwicklungs- oder Produktionsmodus.
+Starte den <strong>Omnixys Gateway Service</strong> wahlweise im Entwicklungs- oder Produktionsmodus.
 
 <h4 align="center" style="color:#6A4BBC; font-weight:600;">⚙️ Kern-Infrastruktur starten</h4>
 
 <p style="font-size:14px; color:#312E81;">
   Bevor der NestJS-Service selbst gestartet wird, muss die erforderliche <strong>Omnixys-Kern-Infrastruktur</strong>
   (PostgreSQL, Keycloak, Camunda, Kafka, Tempo und Prometheus) laufen.<br/>
-  Diese Komponenten stellen die notwendigen Backend-Dienste für Authentifizierung, Orchestrierung, Monitoring und Invitation-Streaming bereit.
+  Diese Komponenten stellen die notwendigen Backend-Dienste für Authentifizierung, Orchestrierung, Monitoring und Gateway-Streaming bereit.
 </p>
 
 <pre style="background-color:#F8F7FF; color:#1E1B4B; border-radius:8px; padding:10px; font-size:13px; border:1px solid #E0DEF0;"><code># In das Docker-Umgebungsverzeichnis wechseln
@@ -1550,7 +1550,7 @@ docker compose down -v
 <h4 align="center" style="color:#6A4BBC; font-weight:600;">⚙️ Kafka-Host-Konfiguration</h4>
 
 <p style="font-size:14px; color:#312E81;">
-  Der <strong>beworbene Kafka-Hostname</strong> hängt davon ab, wo der Invitation-Service läuft.<br/>
+  Der <strong>beworbene Kafka-Hostname</strong> hängt davon ab, wo der Gateway-Service läuft.<br/>
   Passe die Variable in <code>.extras/docker/kafka/.env</code> entsprechend an:
 </p>
 
@@ -1596,7 +1596,7 @@ docker compose down -v
 
 <p align="center" style="font-size:14px; color:#312E81;">
   Beispiel einer <strong>GraphQL-Authentifizierungsanfrage</strong> mit dem 
-  <strong>Omnixys Invitation Service</strong>:
+  <strong>Omnixys Gateway Service</strong>:
 </p>
 
 ```graphql
@@ -1632,7 +1632,7 @@ mutation Login {
 <h3 id="fehlerbehebung" align="center" style="color:#6A4BBC; font-weight:600;">🛠️ Fehlerbehebung</h3>
 
 <p align="center" style="font-size:14px; color:#312E81;">
-  Häufige Probleme und deren Lösungen beim Entwickeln oder Ausführen des <strong>Omnixys Invitation Service</strong>.
+  Häufige Probleme und deren Lösungen beim Entwickeln oder Ausführen des <strong>Omnixys Gateway Service</strong>.
 </p>
 
 <table align="center" style="border-collapse:collapse; font-size:14px;">
@@ -1680,7 +1680,7 @@ mutation Login {
 
 <p align="center" style="font-size:14px; color:#312E81;">
   Nützliche Befehle für Entwicklung, Formatierung und Tests innerhalb des 
-  <strong>Omnixys Invitation Service</strong>:
+  <strong>Omnixys Gateway Service</strong>:
 </p>
 
 ```bash
@@ -1717,7 +1717,7 @@ pnpm run test
 
 <p align="center" style="font-size:14px; color:#312E81;">
   Tritt der <strong>Omnixys-Entwicklercommunity</strong> bei, um Ideen zu teilen, Fehler zu melden oder Unterstützung für den 
-  <strong>Invitation Service</strong> zu erhalten.
+  <strong>Gateway Service</strong> zu erhalten.
 </p>
 
 <table align="center" style="border-collapse:collapse; font-size:14px;">
@@ -1730,31 +1730,31 @@ pnpm run test
   <tbody>
     <tr>
       <td>💡 <strong>Feature-Vorschlag einreichen</strong></td>
-      <td><a href="https://github.com/omnixys/omnixys-invitation-service/discussions/new?category=ideas--suggestions" style="color:#6A4BBC; text-decoration:none;">Neue Funktionsdiskussion starten</a></td>
+      <td><a href="https://github.com/omnixys/omnixys-gateway-service/discussions/new?category=ideas--suggestions" style="color:#6A4BBC; text-decoration:none;">Neue Funktionsdiskussion starten</a></td>
     </tr>
     <tr>
       <td>🧪 <strong>Implementierungsdetails diskutieren</strong></td>
-      <td><a href="https://github.com/omnixys/omnixys-invitation-service/discussions/new?category=implementation-details" style="color:#6A4BBC; text-decoration:none;">Architektur-Thread beitreten</a></td>
+      <td><a href="https://github.com/omnixys/omnixys-gateway-service/discussions/new?category=implementation-details" style="color:#6A4BBC; text-decoration:none;">Architektur-Thread beitreten</a></td>
     </tr>
     <tr>
       <td>❓ <strong>Fragen oder Hilfe anfordern</strong></td>
-      <td><a href="https://github.com/omnixys/omnixys-invitation-service/discussions/new?category=questions--support" style="color:#6A4BBC; text-decoration:none;">Neue Frage stellen</a></td>
+      <td><a href="https://github.com/omnixys/omnixys-gateway-service/discussions/new?category=questions--support" style="color:#6A4BBC; text-decoration:none;">Neue Frage stellen</a></td>
     </tr>
     <tr>
       <td>🧵 <strong>Allgemeines Feedback / Meta</strong></td>
-      <td><a href="https://github.com/omnixys/omnixys-invitation-service/discussions/new?category=general" style="color:#6A4BBC; text-decoration:none;">Allgemeine Diskussion starten</a></td>
+      <td><a href="https://github.com/omnixys/omnixys-gateway-service/discussions/new?category=general" style="color:#6A4BBC; text-decoration:none;">Allgemeine Diskussion starten</a></td>
     </tr>
     <tr>
       <td>🐛 <strong>Fehler melden</strong></td>
-      <td><a href="https://github.com/omnixys/omnixys-invitation-service/issues/new?template=auth_bug_report.yml" style="color:#6A4BBC; text-decoration:none;">Bug Report erstellen</a></td>
+      <td><a href="https://github.com/omnixys/omnixys-gateway-service/issues/new?template=auth_bug_report.yml" style="color:#6A4BBC; text-decoration:none;">Bug Report erstellen</a></td>
     </tr>
     <tr>
       <td>🔒 <strong>Sicherheitsproblem melden</strong></td>
-      <td><a href="https://github.com/omnixys/omnixys-invitation-service/security/policy" style="color:#6A4BBC; text-decoration:none;">Sicherheitsbericht einreichen</a></td>
+      <td><a href="https://github.com/omnixys/omnixys-gateway-service/security/policy" style="color:#6A4BBC; text-decoration:none;">Sicherheitsbericht einreichen</a></td>
     </tr>
     <tr>
       <td>🆘 <strong>Hilfe beim Setup</strong></td>
-      <td><a href="https://github.com/omnixys/omnixys-invitation-service/issues/new?template=auth_support_request.yml" style="color:#6A4BBC; text-decoration:none;">Support-Vorlage verwenden</a></td>
+      <td><a href="https://github.com/omnixys/omnixys-gateway-service/issues/new?template=auth_support_request.yml" style="color:#6A4BBC; text-decoration:none;">Support-Vorlage verwenden</a></td>
     </tr>
   </tbody>
 </table>
@@ -1808,7 +1808,7 @@ pnpm run test
 <h3 id="mitwirken" align="center" style="color:#6A4BBC; font-weight:600;">🤝 Mitwirken</h3>
 
 <p align="center" style="font-size:14px; color:#312E81;">
-  So kannst du aktiv zum <strong>Omnixys Invitation Service</strong> beitragen:
+  So kannst du aktiv zum <strong>Omnixys Gateway Service</strong> beitragen:
 </p>
 
 <ol>

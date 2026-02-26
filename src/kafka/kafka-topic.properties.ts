@@ -42,7 +42,7 @@ export const KafkaTopics = {
 
 /**
  * Type-safe Zugriff auf Topic-Namen.
- * Beispiel: `KafkaTopics.Invitation.CustomerDeleted`
+ * Beispiel: `KafkaTopics.user.CustomerDeleted`
  */
 export type KafkaTopicsType = typeof KafkaTopics;
 
@@ -61,7 +61,7 @@ export function getAllKafkaTopics(): readonly string[] {
 
 /**
  * Gibt alle Kafka-Topics zurück, optional gefiltert nach Top-Level-Kategorien.
- * @param keys z.B. ['Invitation', 'Notification']
+ * @param keys z.B. ['User', 'Notification']
  */
 export function getKafkaTopicsBy<K extends keyof KafkaTopicsType>(
   keys: readonly K[],

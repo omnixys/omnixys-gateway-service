@@ -25,7 +25,7 @@ module.exports = {
   entryPointStrategy: 'expand',
 
   // Anzeigeoptionen
-  name: 'Omnixys Invitation API Documentation',
+  name: 'Omnixys Gateway API Documentation',
   includeVersion: true,
   readme: './README.md',
   lang: 'en', // statt htmlLang

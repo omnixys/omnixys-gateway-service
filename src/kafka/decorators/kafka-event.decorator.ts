@@ -15,8 +15,8 @@
  * For more information, visit <https://www.gnu.org/licenses/>.
  */
 
-// kafka-invitation.decorator.ts
-// ✅ KafkaEvent Decorator zur Registrierung von Methoden als Invitation-Handler
+// kafka-event.decorator.ts
+// ✅ KafkaEvent Decorator zur Registrierung von Methoden als Event-Handler
 
 import { SetMetadata } from '@nestjs/common';
 
@@ -48,7 +48,7 @@ export function KafkaHandler(handlerName: string): ClassDecorator {
  * Methoden-Decorator – weist einer Methode eine Liste von Kafka-Topics zu
  */
 /**
- * Decorator zur Registrierung einer Methode als Kafka-Invitation-Handler für bestimmte Topics
+ * Decorator zur Registrierung einer Methode als Kafka-Event-Handler für bestimmte Topics
  * @param topics - Ein oder mehrere Kafka-Topic-Namen
  * @returns Methodendekorator
  *
