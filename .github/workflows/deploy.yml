@@ -1,0 +1,78 @@
+name: Deploy Omnixys Service
+
+on:
+  workflow_run:
+    workflows: ['Docker Build & Push – Omnixys']
+    types: [completed]
+
+jobs:
+  deploy:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: [self-hosted, omnixys-prod]
+    concurrency:
+      group: omnixys-prod
+      cancel-in-progress: false
+    env:
+      SERVICE: ${{ vars.SERVICE }}
+
+    steps:
+      - name: 🔑 Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Deploy ${{ vars.SERVICE }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd /opt/omnixys/compose/app/backend
+
+          echo "----------------------------------------"
+          echo "🚀 Deploying service: $SERVICE"
+          echo "----------------------------------------"
+
+          # ---------------------------------------
+          # 1️⃣ Pull image (prefer immutable SHA tag)
+          # ---------------------------------------
+
+          docker pull "omnixys/${SERVICE}-service:latest"
+          docker image prune -f --filter "until=24h"
+
+          # ---------------------------------------
+          # 2️⃣ Update service
+          # ---------------------------------------
+          docker compose up -d --no-deps "$SERVICE"
+
+
+          # ---------------------------------------
+          # 3️⃣ Health Check
+          # --------------------------------------- 
+          echo "⏳ Waiting for health..."
+
+          CID=$(docker compose ps -q "$SERVICE")
+
+          if [ -z "$CID" ]; then
+            echo "❌ No container for service $SERVICE"
+            docker compose ps
+            exit 1
+          fi
+
+          for i in {1..45}; do
+            STATUS=$(docker inspect --format='{{if .State.Health}}{{.State.Health.Status}}{{else}}no-healthcheck{{end}}' "$CID")
+
+            if [ "$STATUS" = "healthy" ] || [ "$STATUS" = "no-healthcheck" ]; then
+              echo "✅ $SERVICE is ok ($STATUS)"
+              exit 0
+            fi
+
+            echo "Waiting... ($i/45) Status: $STATUS"
+            sleep 2
+          done
+
+
+          echo "❌ $SERVICE failed health check"
+          echo "------ Recent Logs ------"
+          docker compose logs "$SERVICE" --tail=50 || true
+          echo "-------------------------"
+          exit 1

@@ -74,17 +74,12 @@ env:
   LOG_DIRECTORY: ${{ secrets.LOG_DIRECTORY }}
   LOG_FILE_DEFAULT_NAME: ${{ secrets.LOG_FILE_DEFAULT_NAME }}
 
-  AUTHENTICATION_URI: ${{ secrets.AUTHENTICATION_URI }}
-  EVENT_URI: ${{ secrets.EVENT_URI }}
-  INVITATION_URI: ${{ secrets.INVITATION_URI }}
-  TICKET_URI: ${{ secrets.TICKET_URI }}
-  SEAT_URI: ${{ secrets.SEAT_URI }}
-  NOTIFICATION_URI: ${{ secrets.NOTIFICATION_URI }}
-  USER_URI: ${{ secrets.USER_URI }}
+  DATABASE_URL: ${{ secrets.DATABASE_URL }}
+  SHADOW_DATABASE_URL: ${{ secrets.SHADOW_DATABASE_URL }}
 
 jobs:
   push-docker:
-    # if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     name: 🐳 Build & Push Multi-Arch Images (Docker)
     runs-on: ubuntu-latest
     strategy:
@@ -135,8 +130,8 @@ jobs:
             APP_VERSION=${{ env.CURRENT_VERSION }}
             APP_NAME=${{ vars.SERVICE }}
             NODE_VERSION=${{ matrix.node-version }}
-            DATABASE_URL=${{ env.DATABASE_URL }}
             SHADOW_DATABASE_URL=${{ env.SHADOW_DATABASE_URL }}
+            DATABASE_URL=${{ env.DATABASE_URL }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
 
@@ -149,7 +144,7 @@ jobs:
           cosign sign --yes --recursive ${{ env.IMAGE_NAME }}:latest
 
   push-github:
-    # if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     name: 🐳 Build & Push Multi-Arch Images (Github)
     runs-on: ubuntu-latest
     strategy:
@@ -201,8 +196,8 @@ jobs:
             APP_VERSION=${{ env.CURRENT_VERSION }}
             APP_NAME=${{ vars.SERVICE }}
             NODE_VERSION=${{ matrix.node-version }}
-            DATABASE_URL=${{ env.DATABASE_URL }}
             SHADOW_DATABASE_URL=${{ env.SHADOW_DATABASE_URL }}
+            DATABASE_URL=${{ env.DATABASE_URL }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
 

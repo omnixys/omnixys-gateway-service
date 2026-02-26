@@ -123,6 +123,17 @@ export default {
     ],
 
     /**
+     * 🔥 THIS is what you were missing
+     * Updates package.json version
+     */
+    [
+      '@semantic-release/npm',
+      {
+        npmPublish: false,
+      },
+    ],
+
+    /**
      * Commit release artifacts back to repository
      */
     [

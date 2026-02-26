@@ -1,0 +1,81 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    # if: ${{ github.event.pull_request.merged == true && startsWith(github.event.pull_request.head.ref, 'release/') }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [24.10.0]
+
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: ⚙️ Enable Corepack (pnpm)
+        run: |
+          corepack enable
+          corepack prepare pnpm@latest --activate
+
+      - name: ⚙️ Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+
+      - name: ♻️ Restore pnpm cache
+        uses: actions/cache@v5
+        with:
+          path: ~/.pnpm-store
+          key: pnpm-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            pnpm-${{ runner.os }}-
+
+      - name: 📦 Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Semantic Release
+        run: pnpm run release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Read version
+        run: |
+          echo "CURRENT_VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_ENV
+          echo "CURRENT_DATE=$(date -u +'%Y-%m-%d')" >> $GITHUB_ENV
+
+      - name: Update repo variable
+        env:
+          GH_TOKEN: ${{ secrets.OMNIXYS_TOKEN }}
+        run: |
+          gh variable set CURRENT_VERSION \
+            --body "$CURRENT_VERSION" \
+            --repo omnixys/omnixys-${{ vars.SERVICE }}-service
+
+      - name: Update org variable
+        env:
+          GH_TOKEN: ${{ secrets.OMNIXYS_TOKEN }}
+        run: |
+          gh variable set CURRENT_DATE \
+            --body "$CURRENT_DATE" \
+            --org omnixys \
+            --visibility all
+
+      # - name: Debug auth
+      #   env:
+      #     GH_TOKEN: ${{ secrets.OMNIXYS_TOKEN }}
+      #   run: |
+      #     gh auth status
+      #     gh variable list --repo omnixys/omnixys-user-service
+      #     gh variable list --org omnixys

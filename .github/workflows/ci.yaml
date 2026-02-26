@@ -76,13 +76,8 @@ env:
   POSTGRES_TEST_DB: ${{ secrets.POSTGRES_TEST_DB }}
   POSTGRES_TEST_URL: postgres://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@localhost:5433/${{ secrets.POSTGRES_DB }}
 
-  AUTHENTICATION_URI: ${{ secrets.AUTHENTICATION_URI }}
-  EVENT_URI: ${{ secrets.EVENT_URI }}
-  INVITATION_URI: ${{ secrets.INVITATION_URI }}
-  TICKET_URI: ${{ secrets.TICKET_URI }}
-  SEAT_URI: ${{ secrets.SEAT_URI }}
-  NOTIFICATION_URI: ${{ secrets.NOTIFICATION_URI }}
-  USER_URI: ${{ secrets.USER_URI }}
+  DATABASE_URL: ${{ secrets.DATABASE_URL }}
+  SHADOW_DATABASE_URL: ${{ secrets.SHADOW_DATABASE_URL }}
 
 jobs:
   ci:
@@ -96,9 +91,68 @@ jobs:
       matrix:
         node-version: [24.10.0]
 
+    services:
+      postgres:
+        image: postgres:18
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_USER: ${{ env.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
+          POSTGRES_DB: ${{ env.POSTGRES_DB }}
+          TZ: Europe/Berlin
+        options: >-
+          --health-cmd="pg_isready -U postgres -d postgres"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+      valkey:
+        image: valkey/valkey:latest
+        ports:
+          - 6380:6379
+        env:
+          VALKEY_PASSWORD: ${{ env.VALKEY_PASSWORD }}
+          options: >-
+            --requirepass $VALKEY_PASSWORD
+            --appendonly yes
+            --health-cmd="valkey-cli -a $VALKEY_PASSWORD ping | grep PONG"
+            --health-interval=5s
+            --health-timeout=3s
+            --health-retries=10
+
+      zookeeper:
+        image: wurstmeister/zookeeper
+        ports:
+          - 2181:2181
+        env:
+          ALLOW_ANONYMOUS_LOGIN: yes
+        options: >-
+          --health-cmd "echo ruok | nc localhost 2181 | grep imok"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+
+      kafka:
+        image: wurstmeister/kafka
+        env:
+          KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+          KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+          KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+          KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+        ports:
+          - 9092:9092
+        options: >-
+          --hostname kafka
+          --health-cmd "bash -c 'nc -z localhost 9092 || exit 1'"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 15
+          --health-start-period 20s
+
     steps:
       - name: 🧾 Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
@@ -108,13 +162,13 @@ jobs:
           corepack prepare pnpm@latest --activate
 
       - name: ⚙️ Setup Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
 
       - name: ♻️ Restore pnpm cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
@@ -123,6 +177,47 @@ jobs:
 
       - name: 📦 Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: 🚀 Start Keycloak (26.4)
+        run: |
+          docker run -d --name keycloak -p 8080:8080 \
+           -e KC_BOOTSTRAP_ADMIN_USERNAME=${{ env.KC_ADMIN_USERNAME }} \
+           -e KC_BOOTSTRAP_ADMIN_PASSWORD=${{ env.KC_ADMIN_PASSWORD }} \
+           -v "$(pwd)/__tests__/keycloak/omnixys-realm.json:/opt/keycloak/data/import/omnixys-realm.json:ro" \
+           --tmpfs /opt/keycloak/data:rw,size=200m \
+           quay.io/keycloak/keycloak:26.4 \
+           start-dev --import-realm --http-port=8080
+
+
+          echo "⏳ Waiting for Keycloak..."
+          for i in {1..10}; do
+            if  curl -fs http://localhost:8080/realms/master >/dev/null 2>&1; then
+              echo "✅ Base realm 'master' available (after $i checks)"
+              break
+            fi
+            echo "waiting for master realm ($i/10)..."
+            sleep 5
+          done
+
+          echo "⏳ Waiting for imported realm 'omnixys'..."
+          for i in {1..3}; do
+            status=$(curl -s -o /dev/null -w "%{http_code}" \
+              -H "Accept: application/json" \
+              http://localhost:8080/realms/omnixys || echo 000)
+
+            if [ "$status" = "200" ]; then
+              echo "✅ Realm 'omnixys' reachable (HTTP $status after $i tries)"
+              docker ps
+              exit 0
+            fi
+
+            echo "Realm not yet reachable (status $status, try $i/3)..."
+            sleep 5
+          done
+
+          echo "❌ Keycloak did not become ready in time. Dumping logs..."
+          docker logs keycloak
+          exit 1
 
       - name: 🔍 Lint check
         run: pnpm lint
@@ -138,7 +233,7 @@ jobs:
 
       - name: 📊 Upload coverage to Codecov
         if: success()
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./__tests__/reports/e2e/coverage/lcov.info
