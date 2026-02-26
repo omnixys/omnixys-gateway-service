@@ -51,10 +51,7 @@ export const kafkaProducerProvider: Provider<Promise<Producer>> = {
     try {
       await kafkaProducer.connect();
       logger.info('Kafka producer connected (bootstrap)');
-      const producerService = new KafkaProducerService(
-        kafkaProducer,
-        loggerPlusService,
-      );
+      const producerService = new KafkaProducerService(kafkaProducer);
       setGlobalKafkaProducer(producerService);
       return kafkaProducer;
     } catch (err) {

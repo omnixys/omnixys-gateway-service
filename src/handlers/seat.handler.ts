@@ -3,12 +3,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import { KafkaEnvelope } from '../messaging/decorators/kafka-envelope.type.js';
+import { KafkaEnvelope } from '../kafka/decorators/kafka-envelope.type.js';
 import {
   KafkaEvent,
   KafkaHandler,
-} from '../messaging/decorators/kafka-event.decorator.js';
-import { getTopic } from '../messaging/kafka-topic.properties.js';
+} from '../kafka/decorators/kafka-event.decorator.js';
+import { getTopic } from '../kafka/kafka-topic.properties.js';
 import { UserSignedUpPayload } from '../subscriptions/models/payloads/user-signup.payload.js';
 import { PubSubEngine } from 'graphql-subscriptions';
 
@@ -17,7 +17,7 @@ export type UserSignedUpEvent = KafkaEnvelope<UserSignedUpPayload>;
 import {
   KafkaEventContext,
   KafkaEventHandler,
-} from '../messaging/interface/kafka-event.interface.js';
+} from '../kafka/interface/kafka-event.interface.js';
 import { Inject, Injectable } from '@nestjs/common';
 
 @KafkaHandler('seat')

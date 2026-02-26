@@ -57,7 +57,7 @@ env:
   KC_CLIENT_SECRET: ${{ secrets.KC_CLIENT_SECRET }}
 
   KEYS_PATH: ${{ secrets.KEYS_PATH }}
-  SERVICE: ${{ secrets.SERVICE }}
+  SERVICE: ${{ vars.SERVICE }}
   PORT: ${{ secrets.PORT }}
   GRAPHQL_PLAYGROUND: ${{ secrets.GRAPHQL_PLAYGROUND }}
   NODE_ENV: ${{ secrets.NODE_ENV }}
@@ -77,7 +77,7 @@ env:
   POSTGRES_TEST_URL: postgres://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@localhost:5433/${{ secrets.POSTGRES_DB }}
 
   AUTHENTICATION_URI: ${{ secrets.AUTHENTICATION_URI }}
-  EVENT_URI:  ${{ secrets.EVENT_URI }}
+  EVENT_URI: ${{ secrets.EVENT_URI }}
   INVITATION_URI: ${{ secrets.INVITATION_URI }}
   TICKET_URI: ${{ secrets.TICKET_URI }}
   SEAT_URI: ${{ secrets.SEAT_URI }}

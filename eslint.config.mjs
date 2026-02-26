@@ -43,6 +43,8 @@ export default tseslint.config(
       '.extras/scripts/commitlint-formatter.js',
       '.extras/docker',
       'commitlint.config.mjs',
+      'typedoc.cjs',
+      'release.config.js',
     ],
   },
 

@@ -91,6 +91,7 @@ export const env = {
   NOTIFICATION_URI: process.env.NOTIFICATION_URI ?? 'localhost:3005/graphql',
   USER_URI: process.env.USER_URI ?? 'localhost:7402/graphql',
   SEAT_URI: process.env.SEAT_URI ?? 'localhost:7409/graphql',
+  ATLAXYS_URI: process.env.ATLAXYS_URI ?? 'localhost:7004/graphql',
 } as const;
 
 // /**

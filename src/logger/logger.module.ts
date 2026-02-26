@@ -15,7 +15,7 @@
  * For more information, visit <https://www.gnu.org/licenses/>.
  */
 
-import { KafkaModule } from '../messaging/kafka.module.js';
+import { KafkaModule } from '../kafka/kafka.module.js';
 import { BannerService } from './banner.service.js';
 import { LoggerPlusService } from './logger-plus.service.js';
 import { ResponseTimeInterceptor } from './response-time.interceptor.js';

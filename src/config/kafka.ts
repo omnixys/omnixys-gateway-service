@@ -31,6 +31,13 @@ export const kafka = new Kafka({
   clientId: `omnixys-${SERVICE}`,
   brokers: [KAFKA_BROKER],
   logLevel: logLevel.INFO,
+
+  retry: {
+    retries: 10,
+    initialRetryTime: 300,
+    maxRetryTime: 3000,
+  },
+
   connectionTimeout: 10000,
   requestTimeout: 30000,
 });
@@ -40,6 +47,8 @@ export const kafka = new Kafka({
  */
 export const kafkaProducer = kafka.producer({
   createPartitioner: Partitioners.LegacyPartitioner,
+  maxInFlightRequests: 1,
+  idempotent: true,
 });
 
 /**

@@ -9,7 +9,7 @@
 import { env } from './config/env.js';
 import { HandlerModule } from './handlers/handler.module.js';
 import { HealthModule } from './health/health.module.js';
-import { KafkaModule } from './messaging/kafka.module.js';
+import { KafkaModule } from './kafka/kafka.module.js';
 import { SubscriptionServerModule } from './subscriptions/subscription.module.js';
 import { IntrospectAndCompose, RemoteGraphQLDataSource } from '@apollo/gateway';
 import { ApolloGatewayDriver, ApolloGatewayDriverConfig } from '@nestjs/apollo';
@@ -25,6 +25,7 @@ const {
   TICKET_URI,
   SEAT_URI,
   NOTIFICATION_URI,
+  ATLAXYS_URI,
 } = env;
 
 export interface AuthToken {
@@ -230,6 +231,7 @@ function clearCookie(name: string, opts?: { secure?: boolean; sameSite?: SameSit
             { name: 'ticket', url: TICKET_URI },
             { name: 'notification', url: NOTIFICATION_URI },
             { name: 'seat', url: SEAT_URI },
+            { name: 'atlaxys', url: ATLAXYS_URI },
           ],
         }),
 

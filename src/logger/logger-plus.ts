@@ -16,7 +16,7 @@
  */
 
 import { env } from '../config/env.js';
-import { KafkaTopics } from '../messaging/kafka-topic.properties.js';
+import { KafkaTopics } from '../kafka/kafka-topic.properties.js';
 import type { TraceContext } from '../trace/trace-context.util.js';
 import { getLogger } from './get-logger.js';
 import { getGlobalKafkaProducer } from './logger-plus.service.js';

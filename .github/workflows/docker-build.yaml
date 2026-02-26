@@ -37,7 +37,7 @@ permissions:
 
 env:
   COSIGN_EXPERIMENTAL: 'true'
-  IMAGE_NAME: ${{ secrets.DOCKER_USER }}/${{ secrets.SERVICE }}-service
+  IMAGE_NAME: ${{ secrets.DOCKER_USER }}/${{ vars.SERVICE }}-service
   IMAGE_NAME_REPOSITORY: ghcr.io/${{ github.repository }}
   CURRENT_VERSION: ${{ vars.CURRENT_VERSION }}
 
@@ -62,7 +62,7 @@ env:
   KC_CLIENT_SECRET: ${{ secrets.KC_CLIENT_SECRET }}
 
   KEYS_PATH: ${{ secrets.KEYS_PATH }}
-  SERVICE: ${{ secrets.SERVICE }}
+  SERVICE: ${{ vars.SERVICE }}
   PORT: ${{ secrets.PORT }}
   GRAPHQL_PLAYGROUND: ${{ secrets.GRAPHQL_PLAYGROUND }}
   NODE_ENV: ${{ secrets.NODE_ENV }}
@@ -75,7 +75,7 @@ env:
   LOG_FILE_DEFAULT_NAME: ${{ secrets.LOG_FILE_DEFAULT_NAME }}
 
   AUTHENTICATION_URI: ${{ secrets.AUTHENTICATION_URI }}
-  EVENT_URI:  ${{ secrets.EVENT_URI }}
+  EVENT_URI: ${{ secrets.EVENT_URI }}
   INVITATION_URI: ${{ secrets.INVITATION_URI }}
   TICKET_URI: ${{ secrets.TICKET_URI }}
   SEAT_URI: ${{ secrets.SEAT_URI }}
@@ -133,7 +133,7 @@ jobs:
             REVISION=${{ github.sha }}
             CREATED=${{ env.CURRENT_DATE }}
             APP_VERSION=${{ env.CURRENT_VERSION }}
-            APP_NAME=${{ secrets.SERVICE }}
+            APP_NAME=${{ vars.SERVICE }}
             NODE_VERSION=${{ matrix.node-version }}
             DATABASE_URL=${{ env.DATABASE_URL }}
             SHADOW_DATABASE_URL=${{ env.SHADOW_DATABASE_URL }}
@@ -199,7 +199,7 @@ jobs:
             REVISION=${{ github.sha }}
             CREATED=${{ env.CURRENT_DATE }}
             APP_VERSION=${{ env.CURRENT_VERSION }}
-            APP_NAME=${{ secrets.SERVICE }}
+            APP_NAME=${{ vars.SERVICE }}
             NODE_VERSION=${{ matrix.node-version }}
             DATABASE_URL=${{ env.DATABASE_URL }}
             SHADOW_DATABASE_URL=${{ env.SHADOW_DATABASE_URL }}

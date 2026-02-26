@@ -1,6 +1,6 @@
 // /backend/gateway/src/subscriptions/subscription.module.ts
 
-import { KafkaModule } from '../messaging/kafka.module.js';
+import { KafkaModule } from '../kafka/kafka.module.js';
 import { ValkeyModule } from '../valkey/valkey.module.js';
 import { UserSignupSubscriptionResolver } from './subscription.resolver.js';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
