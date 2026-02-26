@@ -80,3 +80,237 @@ pids
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
 .extras/doc
+
+# @license GPL-3.0-or-later
+# Copyright (C) 2025 Caleb Gyamfi - Omnixys Technologies
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
+#
+# For more information, visit <https://www.gnu.org/licenses/>.
+ 
+
+# compiled output
+/dist
+/node_modules
+/build
+**/reports/**
+
+# TypeScript build cache
+*.tsbuildinfo
+
+volumes
+keys
+
+# Logs
+logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# OS
+.DS_Store
+
+# Tests
+/coverage
+/.nyc_output
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# dotenv environment variable files
+.env
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local
+.env.docker
+
+# temp directory
+.temp
+.tmp
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Diagnostic reports (https://nodejs.org/api/report.html)
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+.extras/doc
+
+
+
+## 🦖 Python (FastAPI, Tests, Pipenv, Poetry, etc.)
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+dist/
+build/
+.eggs/
+.pytest_cache/
+.coverage*
+.cache
+.tox/
+.nox/
+.hypothesis/
+.pybuilder/
+.pyre/
+.pytype/
+.mypy_cache/
+.dmypy.json
+*.manifest
+*.spec
+celerybeat-schedule
+celerybeat.pid
+
+## 📃 Logs, Reports & Debug
+*.log
+logs/
+pids
+*.pid
+*.seed
+*.pid.lock
+report.*.json
+
+## 🎨 Jupyter & IPython
+.ipynb_checkpoints/
+profile_default/
+ipython_config.py
+
+## 🎓 Django / Flask / Scrapy / Sphinx
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+instance/
+.webassets-cache
+.scrapy/
+docs/_build/
+
+## 🪓 Test-Coverage / Snapshots
+.coverage*
+.nyc_output
+.clinic
+/coverage
+__tests__/buch/__snapshots__
+
+## 🧲 Node.js (lokale Tools, Linting, etc.)
+node_modules/
+/dist
+/build
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+## ⚙️ Java (Spring Boot, Gradle, Maven, IntelliJ)
+.gradle
+build/
+*.class
+*.jar
+*.war
+*.ear
+*.iml
+.idea/
+*.ipr
+*.iws
+out/
+.project
+.classpath
+.factorypath
+.settings/
+.sts4-cache
+.apt_generated
+.springBeans
+bin/
+
+### Maven
+.mvn/
+!**/gradle-wrapper.jar
+!gradle-wrapper.properties
+
+## 🌐 VS Code / IntelliJ / Eclipse / STS / NetBeans
+.vscode/
+.idea/
+.c9/
+*.launch
+*.sublime-workspace
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+.nb-gradle/
+
+## 🌐 Betriebssystem / IDEs
+.DS_Store
+Thumbs.db
+
+## 🔑 Umgebungsvariablen / Secrets / TLS-Schlüssel
+.env
+.env.*
+.extras/compose/db/*/*.txt
+src/config/resources/tls/key.pem
+
+## ⚠️ Generierte / temporäre Dateien
+.temp
+.tmp
+temp/
+tmp/
+
+## 📊 Exportierte Artefakte, Diagramme, Reports
+.extras/doc/projekthandbuch/html/*
+.extras/doc/folien/*.html
+.extras/doc/api/*
+.extras/doc/ReadMe.html
+scripts/dependency-check-report.html
+dependencies.svg
+
+## ♻️ OpenTelemetry / Observability
+.traces/
+otel-collector-config.yaml
+prometheus.yml
+grafana.db
+tempo.yml
+
+## 🚜 Kafka / Zookeeper (lokal)
+kafka-logs/
+zookeeper-data/
+
+## 📷 Medien-Dateien
+.extras/*.{png,jpeg,gif,mp4,mpeg,mkv,avi,ogg,webm}
+
+
+__tests__/e2e
+__tests__/reports
+__tests__/utils
+__tests__/env.ts
+__tests__/tsconfig.test.json
