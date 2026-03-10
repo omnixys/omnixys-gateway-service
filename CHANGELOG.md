@@ -2,6 +2,11 @@
 
 All notable changes in this project will be documented in this file.
 
+## <small>1.1.1 (2026-03-10)</small>
+
+- fix(cors): improve CORS configuration and allowed headers ([80f875ef89839aabca7a58bfc87f01ea75d4e7d4](https://github.com/omnixys/gateway-service/commit/80f875ef89839aabca7a58bfc87f01ea75d4e7d4))
+- ci(release): update release.config.js ([533b3e138f4b95db4170ebd20c2ccae4be27f2bd](https://github.com/omnixys/gateway-service/commit/533b3e138f4b95db4170ebd20c2ccae4be27f2bd))
+
 ## 1.1.0 (2026-03-10)
 
 - feat(add registry): add npm auth & update app ([46a410ae10b45aa16737efd729a555f62595a6c8](https://github.com/omnixys/gateway-service/commit/46a410ae10b45aa16737efd729a555f62595a6c8))
