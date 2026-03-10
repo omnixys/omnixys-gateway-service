@@ -13,7 +13,7 @@
 #
 # For more information, visit <https://www.gnu.org/licenses/>.
 # ---------------------------------------------------------------------------------------
-# Dockerfile – Omnixys Gateway Service
+# Dockerfile – Omnixys Authentication Service
 # Multi-stage build optimized for security, reproducibility, and minimal runtime size.
 # ---------------------------------------------------------------------------------------
 # syntax=docker/dockerfile:1.14.0
@@ -28,7 +28,6 @@ ARG NODE_VERSION=24.10.0
 FROM node:${NODE_VERSION}-bookworm-slim AS base
 WORKDIR /home/node
 RUN corepack enable pnpm
-USER node
 
 # ---------------------------------------------------------------------------------------
 # Stage 1: Build (dist)
@@ -37,7 +36,13 @@ USER node
 # ---------------------------------------------------------------------------------------
 FROM base AS dist
 COPY --chown=node:node package.json pnpm-lock.yaml ./
-RUN pnpm install --frozen-lockfile --ignore-scripts
+
+RUN --mount=type=secret,id=omnixys_token \
+    TOKEN=$(cat /run/secrets/omnixys_token) && \
+    echo "@omnixys:registry=https://npm.pkg.github.com" > .npmrc && \
+    echo "//npm.pkg.github.com/:_authToken=${TOKEN}" >> .npmrc && \
+    pnpm install --frozen-lockfile --ignore-scripts
+
 COPY --chown=node:node . .
 RUN pnpm run build
 
@@ -47,13 +52,19 @@ RUN pnpm run build
 # - No dev packages or build tools are included.
 # ---------------------------------------------------------------------------------------
 FROM base AS dependencies
+
 COPY --chown=node:node package.json pnpm-lock.yaml ./
-RUN pnpm install --prod --frozen-lockfile --ignore-scripts
+
+RUN --mount=type=secret,id=omnixys_token \
+    TOKEN=$(cat /run/secrets/omnixys_token) && \
+    echo "@omnixys:registry=https://npm.pkg.github.com" > .npmrc && \
+    echo "//npm.pkg.github.com/:_authToken=${TOKEN}" >> .npmrc && \
+    pnpm install --frozen-lockfile --ignore-scripts
 
 # ---------------------------------------------------------------------------------------
 # Stage 3: Final runtime image
 # - Copies only compiled code and production node_modules.
-# - Runs the app as a non-root gateway for security.
+# - Runs the app as a non-root user for security.
 # ---------------------------------------------------------------------------------------
 FROM node:${NODE_VERSION}-bookworm-slim AS final
 
@@ -65,18 +76,18 @@ ARG CREATED
 ARG REVISION
 
 # ----- Image metadata (OCI compliant) -----
-LABEL org.opencontainers.image.title="omnixys-${APP_NAME}-service" \
+LABEL org.opencontainers.image.title="${APP_NAME}-service" \
       org.opencontainers.image.description="Omnixys ${APP_NAME}-service – Node.js ${NODE_VERSION}, built with TypeScript, version ${APP_VERSION}, based on Debian Bookworm." \
       org.opencontainers.image.version="${APP_VERSION}" \
       org.opencontainers.image.licenses="GPL-3.0-or-later" \
       org.opencontainers.image.vendor="Omnixys Technologies" \
       org.opencontainers.image.authors="caleb.gyamfi@omnixys.com" \
       org.opencontainers.image.base.name="node:${NODE_VERSION}-bookworm-slim" \
-      org.opencontainers.image.url="https://github.com/omnixys/omnixys-${APP_NAME}-service" \
-      org.opencontainers.image.source="https://github.com/omnixys/omnixys-${APP_NAME}-service" \
+      org.opencontainers.image.url="https://github.com/omnixys/${APP_NAME}-service" \
+      org.opencontainers.image.source="https://github.com/omnixys/${APP_NAME}-service" \
       org.opencontainers.image.created="${CREATED}" \
       org.opencontainers.image.revision="${REVISION}" \
-      org.opencontainers.image.documentation="https://github.com/omnixys/omnixys-${APP_NAME}-service/blob/main/README.md"
+      org.opencontainers.image.documentation="https://github.com/omnixys/${APP_NAME}-service/blob/main/README.md"
 
 # ----- Set working directory -----
 WORKDIR /opt/app
@@ -97,7 +108,7 @@ RUN apt-get update && \
 # ----- Enable pnpm (runtime) -----
 RUN corepack enable pnpm
 
-# ----- Switch to non-root gateway -----
+# ----- Switch to non-root user -----
 USER node
 
 # ----- Copy built artifacts and dependencies -----

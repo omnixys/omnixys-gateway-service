@@ -314,3 +314,5 @@ __tests__/reports
 __tests__/utils
 __tests__/env.ts
 __tests__/tsconfig.test.json
+
+.npmrc

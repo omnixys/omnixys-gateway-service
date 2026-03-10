@@ -1,5 +1,5 @@
 {
-  "name": "omnixys-gateway-service",
+  "name": "gateway-service",
   "version": "1.0.1",
   "description": "Omnixys Gateway Service",
   "author": {
@@ -9,10 +9,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/omnixys/omnixys-gateway-service.git"
+    "url": "https://github.com/omnixys/gateway-service.git"
   },
   "bugs": {
-    "url": "https://github.com/omnixys/omnixys-gateway-service/issues"
+    "url": "https://github.com/omnixys/gateway-service/issues"
   },
   "homepage": "https://omnixys.com",
   "license": "GPL-3.0-or-later",
