@@ -23,6 +23,13 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Setup npm registry auth
+        run: |
+          echo "@omnixys:registry=https://npm.pkg.github.com" >> .npmrc
+          echo "//npm.pkg.github.com/:_authToken=${OMNIXYS_TOKEN}" >> .npmrc
+        env:
+          OMNIXYS_TOKEN: ${{ secrets.OMNIXYS_TOKEN }}
+
       - name: ⚙️ Enable Corepack (pnpm)
         run: |
           corepack enable
@@ -44,6 +51,8 @@ jobs:
 
       - name: 📦 Install dependencies
         run: pnpm install --frozen-lockfile
+        env:
+          OMNIXYS_TOKEN: ${{ secrets.OMNIXYS_TOKEN }}
 
       - name: Semantic Release
         run: pnpm run release
@@ -61,7 +70,7 @@ jobs:
         run: |
           gh variable set CURRENT_VERSION \
             --body "$CURRENT_VERSION" \
-            --repo omnixys/omnixys-${{ vars.SERVICE }}-service
+            --repo omnixys/${{ vars.SERVICE }}-service
 
       - name: Update org variable
         env:
@@ -71,11 +80,3 @@ jobs:
             --body "$CURRENT_DATE" \
             --org omnixys \
             --visibility all
-
-      # - name: Debug auth
-      #   env:
-      #     GH_TOKEN: ${{ secrets.OMNIXYS_TOKEN }}
-      #   run: |
-      #     gh auth status
-      #     gh variable list --repo omnixys/omnixys-user-service
-      #     gh variable list --org omnixys

@@ -76,9 +76,6 @@ env:
   POSTGRES_TEST_DB: ${{ secrets.POSTGRES_TEST_DB }}
   POSTGRES_TEST_URL: postgres://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@localhost:5433/${{ secrets.POSTGRES_DB }}
 
-  DATABASE_URL: ${{ secrets.DATABASE_URL }}
-  SHADOW_DATABASE_URL: ${{ secrets.SHADOW_DATABASE_URL }}
-
 jobs:
   ci:
     name: Run Lint, Build, Test, and Typecheck
@@ -152,7 +149,7 @@ jobs:
 
     steps:
       - name: 🧾 Checkout Repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -162,21 +159,30 @@ jobs:
           corepack prepare pnpm@latest --activate
 
       - name: ⚙️ Setup Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
 
       - name: ♻️ Restore pnpm cache
-        uses: actions/cache@v5
+        uses: actions/cache@v4
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             pnpm-${{ runner.os }}-
 
+      - name: Setup npm registry auth
+        run: |
+          echo "@omnixys:registry=https://npm.pkg.github.com" >> .npmrc
+          echo "//npm.pkg.github.com/:_authToken=${OMNIXYS_TOKEN}" >> .npmrc
+        env:
+          OMNIXYS_TOKEN: ${{ secrets.OMNIXYS_TOKEN }}
+
       - name: 📦 Install dependencies
         run: pnpm install --frozen-lockfile
+        env:
+          OMNIXYS_TOKEN: ${{ secrets.OMNIXYS_TOKEN }}
 
       - name: 🚀 Start Keycloak (26.4)
         run: |
@@ -233,7 +239,7 @@ jobs:
 
       - name: 📊 Upload coverage to Codecov
         if: success()
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./__tests__/reports/e2e/coverage/lcov.info

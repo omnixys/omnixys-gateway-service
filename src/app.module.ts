@@ -20,10 +20,10 @@ import { GraphQLModule } from '@nestjs/graphql';
 const {
   AUTHENTICATION_URI,
   USER_URI,
-  EVENT_URI,
-  INVITATION_URI,
-  TICKET_URI,
-  SEAT_URI,
+  // EVENT_URI,
+  // INVITATION_URI,
+  // TICKET_URI,
+  // SEAT_URI,
   NOTIFICATION_URI,
   ADDRESS_URI,
 } = env;
@@ -151,7 +151,14 @@ function appendCookieHeaders(ctx: any) {
   }
 
   // --- Login / Refresh ---
-  const authPayload: AuthToken = data?.login ?? data?.refresh ?? data?.authenticate;
+  const authPayload: AuthToken =
+    data?.credentialsLogin ??
+    data?.refresh ??
+    data?.authenticate ??
+    data.loginTotp ??
+    data.verifyWebAuthnAuthentication ??
+    data.verifyMagicLink ??
+    data?.verifySignUp?.token;
   if (!authPayload) {
     return;
   }
@@ -226,11 +233,11 @@ function clearCookie(name: string, opts?: { secure?: boolean; sameSite?: SameSit
           subgraphs: [
             { name: 'authentication', url: AUTHENTICATION_URI },
             { name: 'user', url: USER_URI },
-            { name: 'event', url: EVENT_URI },
-            { name: 'invitation', url: INVITATION_URI },
-            { name: 'ticket', url: TICKET_URI },
+            // { name: 'event', url: EVENT_URI },
+            // { name: 'invitation', url: INVITATION_URI },
+            // { name: 'ticket', url: TICKET_URI },
             { name: 'notification', url: NOTIFICATION_URI },
-            { name: 'seat', url: SEAT_URI },
+            // { name: 'seat', url: SEAT_URI },
             { name: 'address', url: ADDRESS_URI },
           ],
         }),
