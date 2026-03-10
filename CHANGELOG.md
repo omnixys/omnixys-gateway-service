@@ -2,6 +2,10 @@
 
 All notable changes in this project will be documented in this file.
 
+## <small>1.1.2 (2026-03-10)</small>
+
+- fix(cors): correct allowed origins and clean up headers ([fc8e3bb6ba8bb3018a70193bb7d819a24b68abcb](https://github.com/omnixys/gateway-service/commit/fc8e3bb6ba8bb3018a70193bb7d819a24b68abcb))
+
 ## <small>1.1.1 (2026-03-10)</small>
 
 - fix(cors): improve CORS configuration and allowed headers ([80f875ef89839aabca7a58bfc87f01ea75d4e7d4](https://github.com/omnixys/gateway-service/commit/80f875ef89839aabca7a58bfc87f01ea75d4e7d4))
