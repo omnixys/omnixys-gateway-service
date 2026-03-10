@@ -52,7 +52,7 @@ export default {
       {
         preset: 'conventionalcommits',
         releaseRules: [
-          { breaking: true, release: 'major' },
+         { type: 'breaking', release: 'major' },
           { type: 'feat', release: 'minor' },
           { type: 'fix', release: 'patch' },
           { type: 'perf', release: 'patch' },
@@ -167,8 +167,8 @@ This release includes stability improvements, bug fixes, and internal refinement
 
 ---
 
-📦 **Service:** Omnixys User Service  
-🔗 **Repository:** https://github.com/omnixys/omnixys-user-service  
+📦 **Service:** Omnixys Gateway Service  
+🔗 **Repository:** https://github.com/omnixys/gateway-service  
 🧭 **Docs:** https://omnixys.com/docs
 `,
       },
