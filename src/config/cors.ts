@@ -40,6 +40,7 @@ import type { FastifyCorsOptions } from '@fastify/cors';
  * @see https://developer.mozilla.org/docs/Web/HTTP/CORS
  * @see https://fastify.dev/docs/latest/Reference/CORS/
  */
+
 export const corsOptions: FastifyCorsOptions = {
   // ======================================================
   // 🌐 Ursprünge (Origins)
@@ -55,8 +56,10 @@ export const corsOptions: FastifyCorsOptions = {
     'https://ui.omnixys.com',
     'https://omnixys.com',
     'https://www.omnixys.com',
-    'http://localhost:3000', // lokales Next.js-Frontend
-    'https://studio.apollographql.com', // GraphQL Playground / Apollo Studio
+    'https://www.api-dev.omnixys.com',
+    'https://www.api.omnixys.com',
+    'http://localhost:3000',
+    'https://studio.apollographql.com',
   ],
 
   // ======================================================
