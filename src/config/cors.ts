@@ -58,6 +58,7 @@ export const corsOptions: FastifyCorsOptions = {
     'https://www.omnixys.com',
     'https://www.api-dev.omnixys.com',
     'https://www.api.omnixys.com',
+    'https://nexys.omnixys.com',
     'http://localhost:3000',
     'https://studio.apollographql.com',
   ],
