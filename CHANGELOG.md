@@ -2,6 +2,11 @@
 
 All notable changes in this project will be documented in this file.
 
+## 1.1.0 (2026-03-10)
+
+- feat(add registry): add npm auth & update app ([46a410ae10b45aa16737efd729a555f62595a6c8](https://github.com/omnixys/gateway-service/commit/46a410ae10b45aa16737efd729a555f62595a6c8))
+- feat(add registry): add npm auth & update app ([9b3691eb8dddb568b2b47c37c82156c31e8bd6d4](https://github.com/omnixys/gateway-service/commit/9b3691eb8dddb568b2b47c37c82156c31e8bd6d4))
+
 ## <small>1.0.1 (2026-02-26)</small>
 
 - fix(graph): fix address subgraph ([a67a66be2fda8e54f57f46c7560e551fa65debea](https://github.com/omnixys/omnixys-gateway-service/commit/a67a66be2fda8e54f57f46c7560e551fa65debea))
