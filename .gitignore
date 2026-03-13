@@ -316,3 +316,4 @@ __tests__/env.ts
 __tests__/tsconfig.test.json
 
 .npmrc
+.secrets
