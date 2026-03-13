@@ -2,6 +2,10 @@
 
 All notable changes in this project will be documented in this file.
 
+## <small>1.1.3 (2026-03-13)</small>
+
+- fix(service): major Service update ([a22733eed2a158725643ef60c0aa57e86fae6efd](https://github.com/omnixys/gateway-service/commit/a22733eed2a158725643ef60c0aa57e86fae6efd))
+
 ## <small>1.1.2 (2026-03-10)</small>
 
 - fix(cors): correct allowed origins and clean up headers ([fc8e3bb6ba8bb3018a70193bb7d819a24b68abcb](https://github.com/omnixys/gateway-service/commit/fc8e3bb6ba8bb3018a70193bb7d819a24b68abcb))
